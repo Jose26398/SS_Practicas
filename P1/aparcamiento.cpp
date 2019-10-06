@@ -197,7 +197,7 @@ printf("\nINFORME PARCIAL->Posicion inicial: (%d)",posicion_inicial);
 //     printf("\nVeces que aparca en cada posicion: %d %d",j,distrib[j]);
 //  printf("\n");
   printf("\nDistancia al punto de destino: media %f, desv.tipica %f",distanciamedia,desvtipica);
-//  printf("\nDesviacion tipica: %f",desvtipica);
+  printf("\nDesviacion tipica: %f",desvtipica);
 }
 printf("\n\nINFORME ->");
   //printf("\n");
