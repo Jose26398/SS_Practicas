@@ -338,6 +338,7 @@ void fin()
 	media_tiempo_desprotegido2 += tiempo_desprotegido*tiempo_desprotegido;
 	porcentaje_desproteccion = 100.0*tiempo_desprotegido/tiempo_total;
 	media_porcentaje_desproteccion += porcentaje_desproteccion;
+    //cout << "asdf: " << porcentaje_desproteccion << endl;
 	media_porcentaje_desproteccion2 += porcentaje_desproteccion*porcentaje_desproteccion;
 }
 

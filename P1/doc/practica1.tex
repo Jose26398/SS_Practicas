@@ -380,9 +380,71 @@ toda la visión de la calle, conseguimos bajar a un valor considerable la distan
 
 \chapter{Mi primer modelo de simulación discreto}
 
+Para este modelo de simulación utilizaremos un problema llamado \textit{radares}, en el que tendremos varios radares funcionando y
+al cabo del tiempo una de sus componentes se romperá, teniendo que reemplazarla por repuestos que tendremos almacenados. En caso
+de que nos quedemos sin repuestos, el radar se quedará fuera de servicio.
+
+Los parámetros que se le pueden pasar a este programa son los siguientes (con sus valores por defecto):
+\begin{itemize}
+	\item Número de radares que hay "\textit{radares}": 5
+	\item Número de repuestos almacenados "\textit{disponibles}": por determinar
+	\item Tiempos mínimo y máximo de devolción de componentes reparados "\textit{vmin}" y "\textit{vmax}": 15 y 30
+	\item Tiempo entre fallos "\textit{tfallo}": 20
+	\item Tiempo total a simular "\textit{tiempo\_total}": 365 (un año)
+	\item Número de simulaciones "\textit{simulaciones}":por determinar
+\end{itemize}
+
+Tendremos que realizar dos experimentos. El primero que investigue el número mínimo de componentes que habría que tener para no
+tener el espacio aéreo desprotegido; y el segundo será un análisis de cómo influyen los distintos parámetros en el rendimiento del
+sistema.
+
+
 \section{Experimentación para el número de repuestos}
 
+En este ejemplo, únicamente tendremos que determinar nosotros el número de simulaciones y el número de repuestos almacenados. El
+resto los dejaremos tal y como están, por defecto.
+
+En primer lugar, vamos a determinar el número mínimo de radares que tendremos que tener, el cual lo determinaremos con un $simulaciones
+=1000$, ya que es un valor suficientemente grande para obtener unos buenos resultados de media. Aun asi, posteriormente, veremos que
+pasa cambiando este parámetro.
+
+Vamos a realizar una ejecución para un número de radares de repuesto que va de 5 a 20. Estos son los resultados que hemos obtenido:
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{c|c|c}
+\textbf{Radares} & \textbf{\begin{tabular}[c]{@{}c@{}}Media del porcentaje\\ del tiempo desprotegido\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Desviación típica del\\ porcentaje del tiempo desprotegido\end{tabular}} \\ \hline
+\textbf{5}	     & 37.0384                             & 8.39283                 \\ \hline
+\textbf{6}  	 & 24.8135                             & 7.50727                 \\ \hline
+\textbf{7}     	 & 15.1238                             & 6.04561                 \\ \hline
+\textbf{8}     	 & 8.85408                             & 5.00746                 \\ \hline
+\textbf{9}     	 & 4.76202                             & 3.41032                 \\ \hline
+\textbf{10}      & 2.28223                             & 2.30909                 \\ \hline
+\textbf{11}      & 0.933034                            & 1.42739                 \\ \hline
+\textbf{12}      & 0.460005                            & 0.950908                \\ \hline
+\textbf{13}      & 0.162082                            & 0.535298                \\
+\end{tabular}%
+}
+\end{table}
+
+Vemos que a partir de 11 radares almacenados, la media del porcentaje ya es inferior al 1\%, sin embargo, como podemos ver en el valor de
+la desviación típica, es relativamente alto. Esto quiere decir que, pese a que la media nos ha salido por debajo del umbral, han habido
+bastantes ejecuciones en las que sí lo ha superado. Si probamos con 12 radares, tenemos una situación parecida, ya que la media nos sale
+por debajo del umbral, pero la desviación tipica también es bastante alta. Quizás no lo hace por mucho, pero para más seguridad yo
+almacenaría un radar más, ya que tampoco será un coste muy alto y tengo la certeza de que no superará el umbral o  lo hará en muy pocas
+ocasiones.
+
+Una vez ya hemos encontrado unos valores para el número de radares almacenados, vamos a comentar que sucede si cambiamos el número
+de simulaciones. Si probamos con un número de simulaciones alto, como puede ser 1000 (el que ya emos utilizado), 500 o 100; podremos
+decir que el experimento es bastante bueno, ya que la media será bastante representativa. Sin embargo, veamos lo que puede pasar con un
+número bajo de ejecuciones:
+
+
+
 \section{Influencia en el rendimiento de los parámetros}
+
+
 
 \newpage
 
