@@ -437,14 +437,115 @@ ocasiones.
 
 Una vez ya hemos encontrado unos valores para el número de radares almacenados, vamos a comentar que sucede si cambiamos el número
 de simulaciones. Si probamos con un número de simulaciones alto, como puede ser 1000 (el que ya emos utilizado), 500 o 100; podremos
-decir que el experimento es bastante bueno, ya que la media será bastante representativa. Sin embargo, veamos lo que puede pasar con un
-número bajo de ejecuciones:
+decir que el experimento es bastante bueno, ya que la media será bastante representativa.
 
+\newpage
+
+Sin embargo, veamos lo que puede pasar con un número bajo de ejecuciones:
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.38]{img/sim10_radares.png}
+\caption{Ejecución con 10 simulaciones.}
+\end{figure}
+
+Como podemos observar, con 11 radares no nos ha costado mucho obtener, tanto una simulación que pasa del 1\%, como otra que obtiene valores
+por debajo. Esto quiere decir que, como tenemos ciertas variables aleatorias no obtenemos un resultado válido con un número tan bajo de
+ejecuciones, es decir, no ofrece una media representativa del modelo.
+
+Si probamos ahora con un número de simulaciones aun más bajo, vemos que el resultado varía todavía más:
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.38]{img/sim5_radares.png}
+\caption{Ejecución con 5 simulaciones.}
+\end{figure}
 
 
 \section{Influencia en el rendimiento de los parámetros}
 
+En esta sección analizaremos cómo cambia el rendimiento del sistema modificando sus parámetros internos, como pueden ser tanto acortar
+el tiempo de devolución de componentes reparados o emplear componentes con más tiempo de vida.
 
+Vamos a empezar cambiando el tiempo de devolución. Por defecto en la simulación tardan entre 15 y 30 días, asi que nosotros podemos probar
+reduciendo este tiempo en, por ejemplo, 10 días. Comentar antes de mostrar los resultados, que para el resto de parámetros pondremos los
+que vienen por defecto (excepto el número de repuestos, que estamos optimizando) y el número de simulaciones a 1000, ya que es el más
+representativo y no tarda demasiado en ejecutarse.
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{c|c|c}
+\textbf{Radares} & \textbf{\begin{tabular}[c]{@{}c@{}}Media del porcentaje\\ del tiempo desprotegido\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Desviación típica del\\ porcentaje del tiempo desprotegido\end{tabular}} \\ \hline
+\textbf{5}	     & 8.03518                             & 3.88919                 \\ \hline
+\textbf{6}  	 & 3.42126                             & 2.46856                 \\ \hline
+\textbf{7}     	 & 1.24311                             & 1.37181                 \\ \hline
+\textbf{8}     	 & 0.440921                            & 0.776739                \\ \hline
+\textbf{9}     	 & 0.128418                            & 0.402314                \\
+\end{tabular}%
+}
+\end{table}
+
+Podemos ver en estos resultados que, los resultados que anteriormente obteníamos con 12-13 radares aproximadamente, ahora los conseguimos
+con 8-9 radares. Esto quiere decir que la simulación está bien hecha, ya que lo lógico al reducir el tiempo de devolución, tengamos un
+porcentaje de tiempo desprotegido inferior. También nos hace cuestionarnos si merece la pena o no, pagar el precio que valdría una devolución
+más rápida o invertir más en piezas (incluso podríamos plantearnos en reducir aun más el tiempo de devolución, si fuese posible).
+
+A continuación, modificaremos el tiempo de vida de los componentes, es decir, vamos a comprobar si merece la pena gastar más dinero en
+emplear componentes más robustos. El tiempo de vida que tenemos por defecto es de aproximadamente 20 días, asi que vamos a aumentarlo en
+10 días y comprobamos que sucede.
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{c|c|c}
+\textbf{Radares} & \textbf{\begin{tabular}[c]{@{}c@{}}Media del porcentaje\\ del tiempo desprotegido\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Desviación típica del\\ porcentaje del tiempo desprotegido\end{tabular}} \\ \hline
+\textbf{5}	     & 14.1074                            & 6.39146              \\ \hline
+\textbf{6}  	 & 7.12183                            & 4.6315               \\ \hline
+\textbf{7}     	 & 3.11415                            & 2.80384              \\ \hline
+\textbf{8}     	 & 1.20292                            & 1.80842              \\ \hline
+\textbf{9}     	 & 0.486128                           & 1.05936              \\
+\end{tabular}%
+}
+\end{table}
+
+Vemos que aumentar el tiempo de vida a un mes (10 días más) también nos mejora los resultados por defecto. Volvemnos a plantearnos el mismo
+dilema de antes, y es si nos merece la pena aumentar el presupuesto en piezas más duradera o invertir en más cantidad. Aqui podemos ver que
+siendo un poco mejores, ya podríamos utilizar 9 repuestos aproximadamente.
+
+No obstante, veamos que sucede si cambiamos los dos parámetros que acabamos de cambiar en una misma simulación.
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{c|c|c}
+\textbf{Radares} & \textbf{\begin{tabular}[c]{@{}c@{}}Media del porcentaje\\ del tiempo desprotegido\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Desviación típica del\\ porcentaje del tiempo desprotegido\end{tabular}} \\ \hline
+\textbf{5}	     & 1.81117                             & 1.7544                 \\ \hline
+\textbf{6}  	 & 0.493805                            & 0.872734               \\ \hline
+\textbf{7}     	 & 0.103228                            & 0.344626               \\ \hline
+\textbf{8}     	 & 0.0213589                           & 0.142657               \\ \hline
+\textbf{9}     	 & 0.00386476                          & 0.0482657              \\
+\end{tabular}%
+}
+\end{table}
+
+Los valores ya son muy bajos aún con 5 radares, pero para entrar en el umbral permitido tendríamos que tener almacenados entre 6-7 repuestos,
+los cuales son prácticamente la mitad de repuestos que teníamos en la simulación inicial.
+
+Partiendo de que estos componentes son muy caros, yo preferiría invertir un poco más en reducir costes de devolución y en aumentar la calidad
+del producto, ya que estamos hablando de tener la mitad de estos (sale a casi un repuesto por radar). Esto es simple especulación, ya que no
+disponemos de los precios exactos de cada parámetro, pero en caso de tenerlos se podría hacer un estudio aun más completo.
+
+
+
+\chapter{Mi primer modelo de simulación continuo}
+
+
+\section{Estabilizar el sistema}
+
+
+\section{Campaña de pesca}
+
+
+\section{Investigando nuevas políticas de pesca}
 
 \newpage
 
