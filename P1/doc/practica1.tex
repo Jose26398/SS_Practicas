@@ -538,24 +538,196 @@ disponemos de los precios exactos de cada parámetro, pero en caso de tenerlos s
 
 \chapter{Mi primer modelo de simulación continuo}
 
+Este modelo de simulación lo estudiaremos con el problema \textit{Simulacion\_lago 2especiespeces}, en el que tendremos que introducir una
+cantidad de peces inicial en un lago, grandes y pequeños, y veremos cómo evoluciona la población en diferentes instantes de tiempo. Hay
+que tener en cuenta varias cosas, como la tasa de crecimiento, que los peces grandes comen unos 10 peces pequeños cada día o que el
+lago tiene una capacidad máxima de 10000000 de peces pequeños y 36000 grandes. Posteriormente, también estudiaremos cómo afectaría una
+campaña de pesca y regularemos un política.
+
 
 \section{Estabilizar el sistema}
+
+Para comenzar, vamos a intentar que el sistema alcance un punto estable de equilibrio para cada especie. Tendremos que simular varios años
+para que se vea correctamente la evolución, asi que yo optaré por poner 20 (o 7300 días); y en cuanto a la cantidad de peces, una que impida
+que los peces grandes extingan a los pequeños, pero sin tener que meter una cantidad exagerada de estos, ya que su tasa de crecimiento es
+tres veces mayor.
+
+Vamos a poner en un principio 25 peces grandes y ajustaremos el valor de los pequeños en base a estos. Empecemos poniendo un valor de 1000
+peces pequeños y mostremos en una gráfica el resultado.
+
+\begin{figure}[H]
+	\begin{minipage}{0.5\textwidth}
+	  \centering
+	  \includegraphics[scale=0.45]{img/pequenios-800-25.png}
+	\end{minipage}
+	\begin{minipage}{0.5\textwidth}
+	  \centering
+	  \includegraphics[scale=0.45]{img/grandes-800-25.png}
+	\end{minipage}
+	\caption{Evolución de la población de peces en 7300 días con pequeños: 1000 y grandes: 25.}
+\end{figure}
+
+Como podemos comprobar, esta cantidad de peces pequeños es muy baja, por lo que rápidamente han desaparecido, mientras que los grandes, al
+cabo del tiempo, también lo han ido haciendo por falta de comida. Esto quiere decir que necesitamos meter más peces pequeños desde el principio,
+asi que probemos con unos 4000. Este el el resultado:
+
+\begin{figure}[H]
+	\begin{minipage}{0.5\textwidth}
+	  \centering
+	  \includegraphics[scale=0.45]{img/pequenios-4000-25.png}
+	\end{minipage}
+	\begin{minipage}{0.5\textwidth}
+	  \centering
+	  \includegraphics[scale=0.45]{img/grandes-4000-25.png}
+	\end{minipage}
+	\caption{Evolución de la población de peces en 7300 días con pequeños: 4000 y grandes: 25}
+\end{figure}
+
+En este caso sí podemos cómo, alrededor de los 2000 días, los dos tipos de peces han conseguido estabilizarse, llegando a punto en el que su
+población no varía. También podemos observar cómo ha aumentado considerablemente el número de peces, llegando los pequeños a los 70 millones
+y los grandes a los 20.000; y por eso decíamos que era innecesario tener que meterlos desde un principio.
+
+A continuación, vamos a mostrar en una gráfica cómo evoluciona una población frente a la otra:
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{img/ambos-4000-25.png}
+\caption{Evolución de la población de peces pequeños y grandes}
+\end{figure}
+
+Se puede ver claramente la forma en espiral que tiene. Esto es por lo siguiente: si nos fijamos en las dos gráficas anteriores, vemos cómo
+tras crecer la población de pequeños, empieza a disminuir a medida que aumenta la de peces grandes. Cuando no hay suficientes pequeños
+para alimentar a los grandes, estos últimos van disminuyendo otra vez, en incremento de los pequeños.
+
+Si superponemos las dos gráficas que representan las poblaciones, se podrá ver todavía mejor (simplemente visual, ya que las cantidades de
+peces que tenemos para cada especie son totalmente diferentes).
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{img/interp.png}
+\caption{Comparación de las poblaciones}
+\end{figure}
 
 
 \section{Campaña de pesca}
 
+Supongamos ahora que la especie de pez depredador tiene interés comercial, y que se realizarán campañas de pesca en un determinado instante
+de tiempo y en las cuales el 50\% de los peces grandes será pescado. Vamos a comprobar cómo afectaría al equilibrio del sistema esta campaña.
+Para que se vea bien cómo afecta la pesca al sistema ya equilibrado, la he puesto cada 10 años para que se ejecute justo en mitad de la
+simulación, ya que lo teniamos puesto que durase 20 años.
 
-\section{Investigando nuevas políticas de pesca}
+Tras ejecutarlo, este ha sido el resultado:
 
-\newpage
+\begin{figure}[H]
+	\begin{minipage}{0.5\textwidth}
+	  \centering
+	  \includegraphics[scale=0.45]{img/pequenios-4000-25-pesca.png}
+	\end{minipage}
+	\begin{minipage}{0.5\textwidth}
+	  \centering
+	  \includegraphics[scale=0.45]{img/grandes-4000-25-pesca.png}
+	\end{minipage}
+	\caption{Evolución de la población de peces en 7300 días con pequeños: 1000, grandes: 25 y campaña de pesca: 50\%}
+\end{figure}
 
-\begin{thebibliography}{5}
+El resultado que obtenemos tras la campaña de pesca es prácticamente el mismo que se obtiene al principio de la ejecución, cuando no están
+equilibrados. El número de peces grandes disminuye a la mitad y, en consecuencia, el número de peces pequeños aumenta, ya que no hay tantos
+depredadores. Una vez vuelva a crecer el número de peces grandes, el número de peces pequeños disminuirá y así sucesivamente hasta volver
+al equilibrio que teníamos.
 
-\bibitem{nombre-referencia}
-Texto referencia
-\\\url{https://url.referencia.com}
+Si analizamos la gráfica resultante de comparar el número de peces pequeños con el grande, obtenemos lo siguiente:
 
-\end{thebibliography}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{img/ambos-4000-25-pesca.png}
+\caption{Evolución de la población de peces pequeños y grandes con campaña de pesca}
+\end{figure}
+
+Podemos ver que la gráfica no ha cambiado en exceso. Tenemos un escalón bastante grande por mitad de la espiral, el cual representa la
+campaña de pesca realizada. Sin embargo, sigue manteniendo una forma de espiral muy parecida a la que hemos visto anteriormente, es decir,
+pese a alterar el sistema, las poblaciones han vuelto a equilibrarse de la misma forma que lo estaban haciendo.
+
+Veamos lo que sucedería si aumentamos la cantidad de peces pescados en la campaña. Pongamos que se pesca un 75\% de los peces grandes. Este
+sería el resultado:
+
+\begin{figure}[H]
+	\begin{minipage}{0.5\textwidth}
+	  \centering
+	  \includegraphics[scale=0.45]{img/pequenios-4000-25-pesca75.png}
+	\end{minipage}
+	\begin{minipage}{0.5\textwidth}
+	  \centering
+	  \includegraphics[scale=0.45]{img/grandes-4000-25-pesca75.png}
+	\end{minipage}
+	\caption{Evolución de la población de peces en 7300 días con pequeños: 1000, grandes: 25 y campaña de pesca: 75\%}
+\end{figure}
+
+Se puede comprobar a simple vista que, en esta última gráfica, hay una desviación un poco más alta en cuanto a la cantidad de peces, debida a
+que hemos eliminado aun más peces grandes y que, en consecuencia, el número de peces pequeños ha aumentado todavía más.
+
+
+\section{Investigando diferentes políticas de pesca}
+
+Si partimos de los resultados obtenidos anteriormente, los mejores momentos para una campaña de pesca sería cuando más peces grandes tenemos,
+los cuales vienen relativamente después de una campaña. El momento sería cuando todavía están equilibrándose, pero no se han perdido peces
+grandes por falta de alimento (peces pequeños). El mayor problema es que si nos equivocamos y hacemos la campaña un poco antes o un poco más
+tarde, puede ser que se pesque muy poco o que acabemos con casi tods los peces.
+
+Para que esto no ocurra, vamos a hacer una simulación para varios momentos después de una campaña. También tendremos en cuenta que no partiremos
+de la primera vez que metemos los peces en el lago, ya que lo más lógico sería comenzar las campañas una vez ya esté equilibrado todo por primera
+vez (que es cuando más tardaría, dependiendo del número de peces echados al principio). Prefiero hacerlo así porque el problema no nos dice si
+podemos controlar o no el número de peces inicial, si no también podríamos barajar esa opción
+
+Veamos los resultados que obtenemos con una variación de campañas entre los 2 y los 6 meses pescando el 70\%, 80\% y 90\%:
+
+\begin{figure}[H]
+	\begin{minipage}{0.5\textwidth}
+	  \centering
+	  \includegraphics[scale=0.45]{img/pequenios-4000-25-pescapol.png}
+	\end{minipage}
+	\begin{minipage}{0.5\textwidth}
+	  \centering
+	  \includegraphics[scale=0.45]{img/grandes-4000-25-pescapol.png}
+	\end{minipage}
+	\caption{Resultados de la mejor política de pesca}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{c|c|c}
+\textbf{Meses entre campaña} & \textbf{Porcentaje de peces} & \textbf{Número de peces} \\ \hline
+\textbf{2}     	 			 & 70                     		& 217677                   \\
+\textbf{2}     	 			 & 80                     		& 263093                   \\
+\textbf{2}     	 			 & 90                     		& 20854                    \\ \hline
+\textbf{3}     	 		 	 & \textbf{70}                  & \textbf{476841}   	   \\
+\textbf{3}     	 		 	 & 80                    		& 340578   	               \\
+\textbf{3}     	 		 	 & 90                    		& 33701   	               \\ \hline
+\textbf{4}     	 		 	 & 70                    		& 436078   	               \\
+\textbf{4}     	 		 	 & 80                    		& 438955   	               \\
+\textbf{4}     	 		 	 & 90                    		& 253930   	               \\ \hline
+\textbf{5}     	 		 	 & 70                   		& 372296   	               \\ 
+\textbf{5}     	 		 	 & 80                    		& 411514   	               \\ 
+\textbf{5}     	 		 	 & 90                    		& 381355   	               \\ \hline
+\textbf{6}	     			 & 70                      		& 320225                   \\ 
+\textbf{6}	     			 & 80                      		& 367629                   \\ 
+\textbf{6}	     			 & 90                      		& 392488                   \\ 
+\end{tabular}%
+}
+\end{table}
+
+Podemos ver que la mejor política ha sido una pesca cada 3 meses del 70\% de los peces, la cual podemos ver en la gráfica cómo va cambiando
+la población regularmente. En ella podemos comprobar como lo que hemos dicho antes puede no ser del todo cierto, y es que realizar la pesca
+cuando hay más peces, no garantiza que se pesque más.
+
+Esto se debe a que, por mucho peces que haya, si realizo una pesca muy grande, tendré que esperar más tiempo a que vuelva a haber una
+cantidad considerable de estos. No obstante, si pesco una cantidad más reducida, tardaré menos en poder volver a pescar una cantidad semejante.
+
+También podemos ver en la tabla como los valores tienen muy poco que ver entre unos porcentajes y otros. Se puede ver que, tanto pescar mucho
+porcentaje y esperar más, como pescar un porcentaje menor y esperar menos, pueden ofrecer unos resultados bastante aceptables. En mi caso,
+yo me quedaría con pescar menos, porque el número de peces que se pescan no tienen una varianza tan grande en comparación con los otros, y
+además, te arriesgas menos a extinguir la especie. 
+
 
 \end{document}
 
