@@ -6,8 +6,8 @@
 
 
 double uniforme() //Genera un número uniformemente distribuido en el
-				  //intervalo [0,1) a partir de uno de los generadores
-				  //disponibles en C. Lo utiliza el generador de demanda
+					//intervalo [0,1) a partir de uno de los generadores
+					//disponibles en C. Lo utiliza el generador de demanda
 {
 	int t = rand();
 	double f = ((double)RAND_MAX+1.0);
@@ -15,8 +15,8 @@ double uniforme() //Genera un número uniformemente distribuido en el
 }
 
 float* construye_prop_a(int n) //Construye la tabla de búsqueda de
-							   //tamaño n para la distribución de
-							   //la demanda del apartado (a).
+								 //tamaño n para la distribución de
+								 //la demanda del apartado (a).
 {
 	int i;
 	float* temp;
@@ -33,8 +33,8 @@ float* construye_prop_a(int n) //Construye la tabla de búsqueda de
 
 
 float* construye_prop_b(int n) //Construye la tabla de búsqueda de
-							   //tamaño n para la distribución de
-							   //la demanda del apartado (b).
+								 //tamaño n para la distribución de
+								 //la demanda del apartado (b).
 {
 	int i, max;
 	float* temp;
@@ -51,8 +51,8 @@ float* construye_prop_b(int n) //Construye la tabla de búsqueda de
 }
 
 float* construye_prop_c(int n) //Construye la tabla de búsqueda de
-							   //tamaño n para la distribución de
-							   //la demanda del apartado (c).
+								 //tamaño n para la distribución de
+								 //la demanda del apartado (c).
 {
 	int i, max;
 	float* temp;
@@ -71,9 +71,9 @@ float* construye_prop_c(int n) //Construye la tabla de búsqueda de
 }
 
 int genera_demanda(float* tabla,int tama) // Genera un valor de la 
-									  	  // distribución de la demanda codificada en tabla, por el 
-										  // método de tablas de búsqueda. 
-										  // tama es el tamaño de la tabla, 100 en nuestro caso particular
+												// distribución de la demanda codificada en tabla, por el 
+											// método de tablas de búsqueda. 
+											// tama es el tamaño de la tabla, 100 en nuestro caso particular
 {
 	int i;
 	double u = uniforme();
@@ -90,7 +90,7 @@ int main(int argc, char* argv[])
 	int x = 10,
 		y = 5,
 		veces = 10000,
-		tabla = 'a';
+		tabla = 'c';
 	
 	int demanda, ganancia, s_maxima;
 	double ganancia_maxima = 0;
@@ -122,7 +122,7 @@ int main(int argc, char* argv[])
 		
 		// Obtener ganancia media y desviacion tipica
 		double ganancia_esperada = sum/veces,
-			   desviacion = sqrt((sum2-veces*ganancia_esperada*ganancia_esperada)/(veces - 1));
+				 desviacion = sqrt((sum2-veces*ganancia_esperada*ganancia_esperada)/(veces - 1));
 
 		if (ganancia_esperada > ganancia_maxima){
 			ganancia_maxima = ganancia_esperada;

@@ -91,7 +91,9 @@ int main(int argc, char* argv[])
 		y = 5,
 		z = 3,
 		veces = 10000,
-		tabla = 'a';
+		modificacion = 1;
+
+	char tabla = 'a';
 	
 	int demanda, ganancia, s_maxima;
 	double ganancia_maxima = 0;
@@ -112,10 +114,17 @@ int main(int argc, char* argv[])
 			demanda = genera_demanda(tablabdemanda, 100);
 
 			if (s > demanda){
-				if (z < (s - demanda) * y)
-        			ganancia = demanda * x - z;
-        		else
-        			ganancia = demanda * x - (s - demanda) * y;
+				
+				if (modificacion == 1)
+					ganancia = demanda*x - z;
+
+				else if (modificacion == 2){
+					if (z < (s - demanda) * y)
+	        			ganancia = demanda * x - z;
+	        		else
+	        			ganancia = demanda * x - (s - demanda) * y;
+	        	}
+	        	
         	}
 
 			else

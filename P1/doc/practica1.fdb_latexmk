@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1570891821 "practica1.tex" "practica1.pdf" "practica1" 1570891823
+["pdflatex"] 1572461241 "practica1.tex" "practica1.pdf" "practica1" 1572461243
   "/etc/texmf/web2c/texmf.cnf" 1570888755 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/jose/.texlive2018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1095.600pk" 1570890391 28952 b5cefd4a1f174bf8211cf490847c39d0 ""
   "/home/jose/.texlive2018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk" 1570890389 31928 a7dc1ff56925118c1afcddb10a939faf ""
@@ -118,13 +118,13 @@
   "img/x-100-2-90.png" 1570891768 24398 59333f7ec236b00af79104ae9b3796aa ""
   "img/x-200-2-90.png" 1570891768 27828 0d354e6b8f6eb02544e8b05ff3027eed ""
   "img/x-50-2-90.png" 1570891768 25364 cc706d5e3b1050418e7e680fd3cabf96 ""
-  "practica1.aux" 1570891822 6761 14f97d4adff3f65e6310bd262bd6d8f8 ""
-  "practica1.out" 1570891822 1178 c01166a777a313afc96217b444c219c7 ""
-  "practica1.tex" 1570891768 40455 ab51c75ad1124329439bc5c497391af0 ""
-  "practica1.toc" 1570891822 1536 2a890a7d24d4dc25e0d02e2ccbe52ce3 ""
+  "practica1.aux" 1572461242 6761 14f97d4adff3f65e6310bd262bd6d8f8 ""
+  "practica1.out" 1572461242 1178 c01166a777a313afc96217b444c219c7 ""
+  "practica1.tex" 1572461241 40455 e983843ef4778f30649c211cfe020327 ""
+  "practica1.toc" 1572461242 1536 2a890a7d24d4dc25e0d02e2ccbe52ce3 ""
   (generated)
+  "practica1.log"
   "practica1.aux"
-  "practica1.out"
   "practica1.pdf"
   "practica1.toc"
-  "practica1.log"
+  "practica1.out"

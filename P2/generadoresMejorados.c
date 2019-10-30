@@ -67,6 +67,32 @@ float* construye_prop_c(int n) //Construye la tabla de búsqueda de
 		temp[i] = temp[i-1]+(float)i/max;
 	for (i=(n/2);i<n;i++)
 		temp[i] = temp[i-1]+(float)(n-i)/max;
+
+	return temp;
+}
+
+float* construye_prop_c_ordenado(int n) //Construye la tabla de búsqueda de
+							   //tamaño n para la distribución de
+							   //la demanda del apartado (c).
+{
+	int i, max;
+	float* temp;
+	if ((temp = (float*) malloc(n*sizeof(float))) == NULL)
+		{
+		 fputs("Error reservando memoria para generador triangular\n",stderr);
+		 exit(1);
+		}
+
+	// Al ser funcion triangular, los valores 49-51, 48-52, ... ,tienen las mismas
+	// probabilidades, asi que solo tendremos que sumarselos a la acumulada uno a uno.
+	max = n*n/4;
+	int j = 1;
+	temp[0] = (float)(n/2)/max;
+	for (i=(n/2)-1;i>=0;i--){
+		temp[j] = temp[j-1]+(float)i/max;
+		temp[j+1] = temp[j]+(float)i/max;
+		j+=2;
+	}
 	return temp;
 }
 
@@ -83,14 +109,45 @@ int genera_demanda(float* tabla,int tama) // Genera un valor de la
 	return i;
 }
 
+int genera_demanda_binaria(float* tabla,int tama) {
+	int i;
+	double u = uniforme();
+	
+	int a = 0, b = tama - 1;
+	bool encontrado = false;
+	
+	while (a <= b && !encontrado) {
+		i = (int) (a + b)/2;
+		
+		if (u < tabla[i]) {
+			if (i == 0)
+				encontrado = true;
+			else if (tabla[i - 1] <= u)
+				encontrado = true;
+			else
+				b = i - 1;
+		}
+		else
+			a = i + 1;
+	}
+	return i;
+}
+
+int genera_demanda_a_mejorado(float* tabla, int tama){
+	double u = uniforme();
+	return (int)(u*100);
+}
+
 
 
 int main(int argc, char* argv[])
 {
 	int x = 10,
-		z = 5,
+		y = 5,
 		veces = 10000,
-		tabla = 'a';
+		mejora = 3;
+
+	char tabla = 'c';
 	
 	int demanda, ganancia, s_maxima;
 	double ganancia_maxima = 0;
@@ -108,10 +165,23 @@ int main(int argc, char* argv[])
 		double sum = 0.0, sum2 = 0.0;
 		
 		for (int i = 0; i < veces; i++){
-			demanda = genera_demanda(tablabdemanda, 100);
+			if (mejora == 1){
+				tablabdemanda = construye_prop_c_ordenado(100);
+				demanda = genera_demanda(tablabdemanda, 100);
+			}
+			else if (mejora == 2)
+				demanda = genera_demanda_binaria(tablabdemanda, 100);
+			else if (mejora == 3){
+				tablabdemanda = construye_prop_a(100);
+				demanda = genera_demanda_a_mejorado(tablabdemanda, 100);
+			}
+			else
+				demanda = genera_demanda(tablabdemanda, 100);
+
+
 
 			if (s > demanda)
-				ganancia = demanda*x - z;
+				ganancia = demanda*x - (s-demanda)*y;
 
 			else
 				ganancia = s*x;
@@ -129,10 +199,10 @@ int main(int argc, char* argv[])
 			s_maxima = s;
 		}
 
-		printf("s: %d, ganancia: %f, desv: %f\n", s, ganancia_esperada, desviacion);
+		printf("s: %d\t\t ganancia: %f\t\t desv: %f\n", s, ganancia_esperada, desviacion);
 	}
 
-	printf("\nValor de x: %d, valor de z: %d, numero de veces: %d, tipo de tabla: %c", x, z, veces, tabla);
+	printf("\nValor de x: %d, valor de y: %d, numero de veces: %d, tipo de tabla: %c", x, y, veces, tabla);
 	printf("\nValor maximo de ganancia: %f || s --> %d\n", ganancia_maxima, s_maxima);
 	return 0;
 }
