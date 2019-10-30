@@ -89,6 +89,7 @@ int main(int argc, char* argv[])
 {
 	int x = 10,
 		y = 5,
+		z = 3,
 		veces = 10000,
 		tabla = 'a';
 	
@@ -110,8 +111,12 @@ int main(int argc, char* argv[])
 		for (int i = 0; i < veces; i++){
 			demanda = genera_demanda(tablabdemanda, 100);
 
-			if (s > demanda)
-				ganancia = demanda*x - (s-demanda)*y;
+			if (s > demanda){
+				if (z < (s - demanda) * y)
+        			ganancia = demanda * x - z;
+        		else
+        			ganancia = demanda * x - (s - demanda) * y;
+        	}
 
 			else
 				ganancia = s*x;
@@ -132,7 +137,7 @@ int main(int argc, char* argv[])
 		printf("s: %d, ganancia: %f, desv: %f\n", s, ganancia_esperada, desviacion);
 	}
 
-	printf("\nValor de x: %d, valor de y: %d, numero de veces: %d, tipo de tabla: %c", x, y, veces, tabla);
+	printf("\nValor de x: %d, valor de y: %d, valor de z: %d, numero de veces: %d, tipo de tabla: %c", x, y, z, veces, tabla);
 	printf("\nValor maximo de ganancia: %f || s --> %d\n", ganancia_maxima, s_maxima);
 	return 0;
 }

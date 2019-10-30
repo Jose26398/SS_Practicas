@@ -88,7 +88,7 @@ int genera_demanda(float* tabla,int tama) // Genera un valor de la
 int main(int argc, char* argv[])
 {
 	int x = 10,
-		y = 5,
+		z = 5,
 		veces = 10000,
 		tabla = 'a';
 	
@@ -111,7 +111,7 @@ int main(int argc, char* argv[])
 			demanda = genera_demanda(tablabdemanda, 100);
 
 			if (s > demanda)
-				ganancia = demanda*x - (s-demanda)*y;
+				ganancia = demanda*x - z;
 
 			else
 				ganancia = s*x;
@@ -132,7 +132,7 @@ int main(int argc, char* argv[])
 		printf("s: %d, ganancia: %f, desv: %f\n", s, ganancia_esperada, desviacion);
 	}
 
-	printf("\nValor de x: %d, valor de y: %d, numero de veces: %d, tipo de tabla: %c", x, y, veces, tabla);
+	printf("\nValor de x: %d, valor de z: %d, numero de veces: %d, tipo de tabla: %c", x, z, veces, tabla);
 	printf("\nValor maximo de ganancia: %f || s --> %d\n", ganancia_maxima, s_maxima);
 	return 0;
 }
