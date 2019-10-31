@@ -113,22 +113,34 @@ int main(int argc, char* argv[])
 		for (int i = 0; i < veces; i++){
 			demanda = genera_demanda(tablabdemanda, 100);
 
-			if (s > demanda){
-				
-				if (modificacion == 1)
+			// SITUACION 1
+			if (modificacion == 1){
+				if (demanda >= s)
+					ganancia = x*s;
+				else
 					ganancia = demanda*x - z;
+			}
 
-				else if (modificacion == 2){
+			// SITUACION 2
+			else if (modificacion == 2){
+				if (demanda >= s)
+					ganancia = x*s;
+				else{
 					if (z < (s - demanda) * y)
 	        			ganancia = demanda * x - z;
 	        		else
 	        			ganancia = demanda * x - (s - demanda) * y;
 	        	}
-	        	
         	}
 
-			else
-				ganancia = s*x;
+        	// POR DEFECTO
+        	else{
+        		if (s > demanda)
+				ganancia = demanda*x - (s-demanda)*y;
+
+				else
+					ganancia = s*x;
+        	}
 
 			sum += ganancia;
 			sum2 += ganancia*ganancia;

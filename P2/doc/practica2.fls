@@ -132,17 +132,17 @@ INPUT practica2.toc
 OUTPUT practica2.toc
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm2074.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx2074.tfm
-INPUT /usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecti1095.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm1440.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx1440.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm1200.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx1200.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecti1095.tfm
 INPUT practica2.aux
 INPUT ./practica2.out
 INPUT ./practica2.out
+INPUT /home/jose/.texlive2018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1095.600pk
 INPUT /home/jose/.texlive2018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk
 INPUT /home/jose/.texlive2018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk
-INPUT /home/jose/.texlive2018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1095.600pk
 INPUT /home/jose/.texlive2018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2074.600pk
 INPUT /home/jose/.texlive2018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2488.600pk
 INPUT /home/jose/.texlive2018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1095.600pk
@@ -150,4 +150,7 @@ INPUT /home/jose/.texlive2018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1095.600
 INPUT /home/jose/.texlive2018/texmf-var/fonts/pk/ljfour/jknappen/ec/eccc2488.600pk
 INPUT /home/jose/.texlive2018/texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1095.600pk
 INPUT /home/jose/.texlive2018/texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1440.600pk
+INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
+INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
+INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
