@@ -21,8 +21,8 @@ int main(int argc, char* argv[])
 	
 
 
-	int x0 = 303;
-	int a = 2061,
+	int x0 = 14;
+	int a = 2060,
 		c = 4231,
 		m = 1e4;
 	
@@ -30,14 +30,15 @@ int main(int argc, char* argv[])
 	int* valores_gen;
 	
 	int num_gen = 0;
-	int tipo_generador = 0;
+	int aritmetica = 3;
 	
 	if ((valores_gen = (int *) malloc(2 * m * sizeof(int))) == NULL) {
-		fputs("Error reservando memoria para valores generados por generador 1\n",stderr);
+		fputs("Error reservando memoria para valores generados por generador\n",stderr);
   	exit(1);
 	}
 	
-	if (tipo_generador == 0){
+	// ENTERA
+	if (aritmetica == 0){
 		xn = (a*x0 + c) % m;
 		
 		while (comprobar_valor_repetido(valores_gen, num_gen, xn) == 0) {
@@ -48,7 +49,8 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	else if (tipo_generador == 1){
+	// REAL ARTESANAL
+	else if (aritmetica == 1){
 		double x = (a*(double)x0 + c) / m;
 		xn = (x-(int)x) * m;
 
@@ -61,7 +63,8 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	else if (tipo_generador == 2){
+	// REAL ARTESANAL CORREGIDA
+	else if (aritmetica == 2){
 		double x = (a*(double)x0 + c) / m;
 		x = (x-(int)x) * m;
 		xn = (int)(x + 0.5);
@@ -76,6 +79,7 @@ int main(int argc, char* argv[])
 		}
 	}
 
+	// FMOD
 	else{
 		xn = (int) fmod( (a*x0 + c), m );
 

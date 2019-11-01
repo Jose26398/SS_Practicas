@@ -160,12 +160,25 @@ Estos han sido los resultados para la distribución \textbf{uniforme}:
 	\caption{$x=10$, $y=10$}
 \end{table}
 
-Como podemos ver..............................
+A simple vista se puede observa como los resultados se van ajustando cada vez mejor a medida que aumentamos el número de repeticiones. Es lo
+lógico, ya que cuantas más veces se pruebe el modelo, más real será la media entre todos los valores (teniendo en cuenta que se utilizan valores
+aleatorios y siempre vamos a tener un pequeño error).
 
+Todo lo contrario con los resultados que ofrecen las cantidades de repeticiones bajas. Es difícil fiarnos de un resultado así, y menos sabiendo
+que el modelo depende bastante de la aleatoriedad, y que cualquier valor fuera de lo normal hace que cambie todo de una forma más acentuada que
+en uno con más repeticiones.
 
+No obstante, hay que tener en cuenta que cuantas más repeticiones le pongamos, más tardará en ejecutarse. En estos ejemplos no tenemos mucho
+problema en eso, ya que son bastante rápidos pese a ejecutarlo con $veces=100000$.
 
-Estos han sido los resultados para la distribución \textbf{proporcional}:
+Si nos fijamos ahora en como cambian los valores entre tablas, es decir, entre unos valores de $y$ y otros, vemos como para un valor más bajo
+las ganancias son más altas que con un valor alto. Esto tiene sentido, porque la $y$ representa cuanto aumentan las pérdidas si tenemos muchos
+productos sin vender.
 
+En el caso de la $y=1$ las ganancias y los productos adquiridos ($s$) son muy altos, ya que apenas perdemos si no vendemos una unidad; en cambio,
+con la $y=10$ la ganancia baja y los productos adquiridos también, ya que no sale rentable comprarlos y después tener que desecharlos.
+
+Vamos a probar ahora con otra distribución. Estos han sido los resultados para la distribución \textbf{proporcional}:
 \begin{table}[H]
 	\parbox{.45\linewidth}{
 	\centering
@@ -206,10 +219,15 @@ Estos han sido los resultados para la distribución \textbf{proporcional}:
 	\caption{$x=10$, $y=10$}
 \end{table}
 
-Como podemos ver.......
+Vemos que el resto de valores son más bajos que en las tablas anteriores. En este caso no tenemos analíticamente el valor de $s$ para contrastar el
+resultado, pero por la forma decreciente de la distribución utilizada podemos decir que estos valores tienen sentido. Una distribución decreciente
+quiere decir que las demandas pequeñas tienen más posibilidades de salir que las grandes, es decir, que la gente comprará menos ese producto y no 
+tendremos que adquirir tantos.
 
-Estos han sido los resultados para la distribución \textbf{triangular}:
+Por otra parte, cuantas más repeticiones ponemos, al igual que antes, más exactos salen nuestros resultados. Lo mismo sucede con los valores de $y$
+respecto a $x$, y es que para un valor más bajo las ganancias son más altas que con un valor alto.
 
+Por último vamos a analizar los resultados para la distribución \textbf{triangular}:
 \begin{table}[H]
 	\parbox{.45\linewidth}{
 	\centering
@@ -250,20 +268,23 @@ Estos han sido los resultados para la distribución \textbf{triangular}:
 	\caption{$x=10$, $y=10$}
 \end{table}
 
-Vemos que-..................
+Al igual que ha pasado con las otras dos distribuciones, nos vamos a quedar con los resultados que nos han ofrecido las repeticiones más altas, ya que
+son los más fiables. Más de lo mismo con la relación $x-y$, aunque en este caso vemos como esta vez los valores no están tan lejos los unos de otros.
 
-
-
-
+Analizando los resultados que nos ofrece la $s$, vemos como los valores rondan el $n/2$ (en nuestro caso 50), porque la distribución triangular hace
+que los valores más probables estén por ahí. Esto también ha afectado a los valores de la ganancia, que en esta tabla hemos visto que son más altos que
+en los anteriores. Esto nos es muy útil, ya que si tuviesemos datos reales o una distribución real de la gente que compra los productos, podríamos ajustar
+un modelo MonteCarlo a los números aleatorios de esta distribución. El objetivo de esto sería obviamente ajustar las variables para obtener la ganancia
+más alta posible.
 
 
 \section{Modificaciones del modelo}
 
 \subsection{Cantidad fija de devolución}
 
-En este apartado vamos a modificar el modelo construido anteriormente, de tal forma que el establecimiento pueda devolver las unidades
-no vendidas. De esta forma hay que pagar una cantidad fija de $z$ euros de gastos de devolución de las unidades no vendidas, en vez de
-tener una pérdida de $y$ euros por unidad. Esta cantidad no varía, a menos que la $z=0$.
+En este apartado vamos a modificar el modelo construido anteriormente, de tal forma que el establecimiento pueda devolver las unidades no vendidas. De 
+esta forma hay que pagar una cantidad fija de $z$ euros de gastos de devolución de las unidades no vendidas, en vez de tener una pérdida de $y$ euros por
+unidad. Esta cantidad no varía, a menos que la $z=0$.
 
 La función de ganancia ahora sería:
 \begin{equation}
@@ -273,8 +294,8 @@ La función de ganancia ahora sería:
 	\end{matrix}\right.
 \end{equation}
 
-Estará implementada en el código $generadoresModificados.c$ y las pruebas que vamos a realizar con él van a ser las mismas que hicimos
-anteriormente, y asi poder comparar unos resultados con otros. Las ejecuciones nos han dado las siguientes tablas:
+Estará implementada en el código $generadoresModificados.c$ y las pruebas que vamos a realizar van a ser con el número de repeticiones más alto, que ya
+hemos visto que es el más fiable (100000 veces) y con los tres tipos de distribuciones. El resultado ha sido el siguiente:
 
 \begin{table}[H]
 	\centering
@@ -293,6 +314,21 @@ anteriormente, y asi poder comparar unos resultados con otros. Las ejecuciones n
 	\caption{Resultados para todas las distribuciones con $x=10$ y $veces=100000$}
 \end{table}
 
+Lo hemos ejecutado con un valor de $y=5$ ya que no era ni tan bajo que apenas supusiese pérdidas, ni tan alto que no diese demasiadas. Puede ser que
+no sea el valor más adecuado, pero para lo que queremos mostrar, nos servirá.
+
+En la ejecución vemos cómo las distribuciones se adecuan bastante bien a lo que comentamos en el punto anterior sobre ellas. Por otro lado, vamos a
+analizar los resultados que nos ofrece cada $z$, que es realmente lo interesante en este apartado. Vemos que los valores bajos, como puede ser el 5,
+hace que la cantidad de productos pedidos sea muy alta. Esto se debe a que la pérdidas por cada producto no vendido van a ser muy pocas.
+
+Por otro lado, con los valores altos, como puede ser el 400, los valores ya empiezan a ser mucho más bajos, tanto en la cantidad de productos como en
+las ganancias que obtenemos. Esto es porque, pese a que ajustemos las ventas al máximo, con que nos sobren muy pocos productos ya estaremos pagando un
+precio muy alto (razón por la cual las ganancias también disminuyen).
+
+Estos valores son poco realista, porque ni una empresa te va a cobrar una excesiva cantidad de dinero por delvolver el producto, ni te va a cobrar tan
+poco que no les salga rentable a ellos. Por eso, ahora vamos a probar con un valor que se puede ajustar mejor, como puede ser el 200. Podemos ver que los
+valores de $s$ no están mal ajustados, dependiendo del tipo de distribución, y que las ganancias están bastante bien (claramente son más altas las que nos
+ofrecen los $z$ pequeños, pero no sería un valor realista).
 
 
 \subsection{Cantidad relativa de devolución}
@@ -310,7 +346,7 @@ La función de la ganancia se nos quedaría de la siguiente forma:
 \end{equation}
 
 También estará implementada en $generadoresModificados.c$, y para ejecutarla, tendremos que cambiar el parámetro $modificacion=2$. El resto
-de valores, se mantendrán exactamente iguales que en las ejjecuciones anteriores. Los resultados han sido los siguientes:
+de valores, se mantendrán exactamente iguales que en las ejecuciones anterior. Los resultados han sido los siguientes:
 
 \begin{table}[H]
 	\centering
@@ -329,7 +365,8 @@ de valores, se mantendrán exactamente iguales que en las ejjecuciones anteriore
 	\caption{Resultados para todas las distribuciones con $x=10$, $y=5$ y $veces=100000$}
 \end{table}
 
-Como podemos ver....
+En esta ejecución podemos ver como para un valor intermedio de $y$ cómo cambian los resultados. Estos se modifican siguiendo las mismas reglas comentadas
+anteriormente, pero en este caso vemos aumentadas las ganancias debido a que elegimos cual nos conviene más, si pagar una cantidad fija o variable.
 
 \begin{table}[H]
 	\centering
@@ -340,42 +377,123 @@ Como podemos ver....
 	\textbf{3} & triangular 			 & 64         & 419.09            & 210.75			  \\ \hline
 	\textbf{7} & uniforme 			 	 & 83         & 344.55            & 337.87 			  \\
 	\textbf{7} & proporcional		     & 51         & 172.44            & 258.79			  \\
-	\textbf{7} & triangular 		     & 59         & 373.18            & 225.49			  \\
+	\textbf{7} & triangular 		     & 59         & 373.18            & 225.49			  \\ \hline
 	\textbf{10} & uniforme 				 & 81         & 336.49            & 335.62 			  \\
 	\textbf{10} & proporcional			 & 53         & 162.06            & 260.66			  \\
-	\textbf{10} & triangular 		     & 57         & 358.21            & 222.97			  \\ \hline
+	\textbf{10} & triangular 		     & 57         & 358.21            & 222.97			  \\
 	\end{tabular}
 	\caption{Resultados para todas las distribuciones con $x=10$, $z=200$ y $veces=100000$}
 \end{table}
 
-Podemos ver que las tablas...........
+En este caso hemos elegido un $z=200$ para ver como cambian las tablas en función de la $y$. Como podemos ver, los modelos de MonteCarlo son bastante flexibles
+y gracias a ellos podemos ajustar las variables a las que más nos convengan o las que más se adecuen a nuestra situación. En estos casos, quizás el gerente
+de la tienda no pueda controlar ni las pérdidas que le da cada producto o los precios de devolución ($y$ y $z$ respectivamente), pero sí puede controlar la
+cantidad de productos que adquiera y adecuarla a las distintas situaciones que se pueden dar, y que en definitiva, más ganancia le den.
+
 
 
 
 \chapter{Generadores de datos}
 
-Este modelo de simulación lo vamos a tratar con el problema del \textit{aparcamiento}, en el cual un coche se dispone
-a aparcar a una distancia $x$ de su destino. También dispondremos de variables como el número de plazas que alcanza a
-ver el conductor desde su posición o la probabilidad de que esa plaza esté ocupada o no. El ejercicio consiste en elegir
-una plaza de aparcamiento $c$ en la cual el conductor, ni se qu
-
+En esta otra parte de la práctica vamos a intentar mejorar los generadores de datos, ya que es una parte fundamental a la hora de ejecutar nuestros modelos.
+Un generador lo más aleatorio posible, que se adecue a las distintas situaciones que nos propongan los modelos y que además sea eficiente, sería el ideal, y 
+es lo que vamos a buscar en este capítulo. El código se encontrará en el archivo 'generadoresMejorados.c', donde habrá distintas funciones alternativas que
+muestren los cambios realizados.
 
 \section{Mejorando los generadores}
 
-Para hacernos una idea de los valores que obtendremos y los parámetros que más afectan al rendimiento de este modelo,
-vamos a realizar una ejecución inici
-
 \subsection{Generadores ordenados}
+
+Vamos a intentar mejorar la eficiencia de los generadores de datos empleados en el capítulo anterior. La primera mejora que vamos a aplicar va a ser la ordenación
+de las tablas de forma decreciente según la probabilidad. Como los generadores $a$ y $b$ (uniforme y proporcional respectivamente), vamos a centrarnos en el
+generador $c$ o triangular. La ejecución ha sido probada con 1000000 de repeticiones, para que se vea mejor cómo afecta y los resultados han sido los siguientes:
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{img/mejora1.png}
+\caption{Ejecución con el tiempo sin y con mejora del generador c}
+\end{figure}
+
+Vemos que se reduce el tiempo a casi la mitad. Esto se debe a que, al estar ordenado de más probabilidad a menos, los valores que más van a salir serán encontrados
+antes en la tabla. Pese a esto, sigue siendo una tabla y la búsqueda de ellos va a ser lineal, es decir, va a recorrer los valores uno a uno hasta llegar al correcto.
+
 
 \subsection{Implementación con búsqueda binaria}
 
-\subsection{Mejora de eficiencia en el generador a}
+En este apartado modificaremos todos los generadores. Como hemos dicho anteriormente, la búsqueda lineal era un problema, asi que en este caso vamos a implementar
+una búsqueda binaria que solucione el problema. En el código, se cambiará la función $genera\_demanda$ por $genera\_demanda\_binaria$. Este es el resultado que nos
+ofrece:
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{img/mejora2.png}
+\caption{Ejecución con los tiempos sin y con mejora de búsqueda}
+\end{figure}
 
+Podemos ver que en el generador c los resultados son todavía mejores que antes, mientras que en los otros dos generadores también ha dado unos buenos resultados.
+Esto se debe a que hemos pasado de hacer una búsqueda de orden lineal a una búsqueda de orden logarítmico. La mejora se ha notado sobre todo en el primer generador,
+y en el último, donde ha bajado el tiempo casi un 50\%; mientras que en el generador $b$ ha sido un poco menos.
+
+
+\subsection{Mejora de eficiencia constante en el generador a}
+
+Por último, vamos a probar a mejorar la eficiencia del generador uniforme haciendo que su tiempo de ejecución sea constante. Este generador lo que hace es generar
+un número aleatorio y recorrer la tabla hasta encontrar un valor mayor que este, y devolver el índice donde estaba situado. Nos podemos ahorrar este proceso si,
+tras generar el número aleatorio entre 0 y 1, lo multiplicamos por 100 y nos quedamos con la parte entera.
+
+Los resultados obtenido tras implementarlo han sido:
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{img/mejora3.png}
+\caption{Ejecución con los tiempos sin y con mejora del generador a}
+\end{figure}
+
+Vemos que la mejora ha sido muy grande, mucho mejor que las anteriores. Lo bueno de este método es que, por muchos elementos que tengamos, la eficiencia va a ser
+la misma, porque estamos ante una 'búsqueda' de orden constante. En contra de este método, decir que funciona porque el generador original en uniforme, pero a
+la hora de hacerlo para los generadores nos resultará imposible encontrar algo similar.
+
+
+\newpage
 
 \section{Generadores congruenciales}
 
-Para hacernos una idea de los valores que obtendremos y los parámetros que más afectan al rendimiento de este modelo,
-vamos a realizar una ejecución inici
+En esta sección vamos a analizar los generadores básicos y ver el peligro que conlleva no implementarlos de forma correcta. El ejercicio nos pide implementar
+dos generadores congruenciales de la siguiente forma:
+\begin{equation}
+x_{n+1} = (2061x_n + 4321) \mod m
+\end{equation}
+
+Y el otro muy similar:
+\begin{equation}
+x_{n+1} = (2060x_n + 4321) \mod m
+\end{equation}
+
+El código donde está implementados se llama $generadoresCongruencias.c$ y para cambiar entre uno y otro sólo tendremos que cambiar la variable $a=2060$ o
+$a=2061$. El ejercicio también nos pide que se calcule el número de periodos obtenidos con distintos tipos de aritméticas: entera, real 'artesanal', real
+'artesanal' corregida y real usando $fmod$. Para cambiar de aritmética sólo tendremos que cambiar la variable $aritmetica$ en el código.
+
+También tendremos que seleccionar un valor de $m=10^4$ y un valor inicial $x_0=14$ en mi caso. El resultado de las ejecuciones ha sido el siguiente:
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c|c|c}
+	\textbf{Aritmética}	& \textbf{Periodo gen 1} & \textbf{Periodo gen 2} \\ \hline
+	entera   			& 10000         		 & 4 					  \\ \hline
+	real artesanal		& 152         			 & 8					  \\ \hline
+	artesanal corregida & 10000        			 & 4				  	  \\ \hline
+	real con $fmod$ 	& 10000        			 & 4				  	  \\
+	\end{tabular}
+	\caption{$x=10$, $y=10$}
+\end{table}
+
+Podemos ver cómo claramente el generador 2 (cuya $a=2060$) no es un buen generador de números aleatorios, ya que empezará a repetir valores muy temprano, por
+otro lado, el generador 1 es un generador correcto, ya que llaga a los $10^4$ periodos sin repetir ni un número. Esto se debe a que $a$ y $m$ no tienen
+divisores en común, mientras que con el generador 2 no sucede lo mismo.
+
+Si nos fijamos en la aritmética real artesanal, vemos como termina muy pronto, en comparación al resto de aritméticas del generador 1. La razón por la que
+sucede esto es que no se redondea correctamente el valor obtenido, es decir, si yo obtengo el 0.99, esta aritmética lo tomará como 0, estando claramente este
+valor más cerca del 1.
+
+Podemos decir que el resto de aritméticas estan bien hechas, ya que ninguna de ellas comenten estos errores y consiguen alcanzar el periodo máximo.
+
 
 
 \end{document}
