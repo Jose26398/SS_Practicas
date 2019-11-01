@@ -173,10 +173,10 @@ int main(int argc, char* argv[])
 {
 	int x = 10,
 		y = 5,
-		veces = 1000,
-		mejora = 1;
+		veces = 1000000,
+		mejora = 3;
 
-	char tabla = 'c';
+	char tabla = 'a';
 	
 	int demanda, ganancia, s_maxima;
 	float* tablabdemanda;
@@ -216,7 +216,7 @@ int main(int argc, char* argv[])
 	double tiempo_mej = (double)(fin_mej-ini_mej) / (double)CLOCKS_PER_SEC;
 
 	printf("\nTiempo en generar demanda sin mejora: %g segundos\n", tiempo);
-	printf("Mejora aplicada: %d\n", mejora);
+	printf("Mejora %d aplicada para la tabla %c\n", mejora, tabla);
 	printf("Tiempo en generar demanda con mejora: %g segundos\n\n", tiempo_mej);
 	return 0;
 }
