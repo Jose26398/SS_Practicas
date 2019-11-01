@@ -71,13 +71,20 @@ float* construye_prop_c(int n) //Construye la tabla de búsqueda de
 	return temp;
 }
 
-float* construye_prop_c_ordenado(int n) //Construye la tabla de búsqueda de
+
+struct ordenado{
+	float acum;
+	int pos;
+};
+
+
+ordenado* construye_prop_c_ordenado(int n) //Construye la tabla de búsqueda de
 							   //tamaño n para la distribución de
 							   //la demanda del apartado (c).
 {
 	int i, max;
-	float* temp;
-	if ((temp = (float*) malloc(n*sizeof(float))) == NULL)
+	ordenado* temp;
+	if ((temp = (ordenado*) malloc(n*sizeof(ordenado))) == NULL)
 		{
 		 fputs("Error reservando memoria para generador triangular\n",stderr);
 		 exit(1);
@@ -87,14 +94,35 @@ float* construye_prop_c_ordenado(int n) //Construye la tabla de búsqueda de
 	// probabilidades, asi que solo tendremos que sumarselos a la acumulada uno a uno.
 	max = n*n/4;
 	int j = 1;
-	temp[0] = (float)(n/2)/max;
-	for (i=(n/2)-1;i>=0;i--){
-		temp[j] = temp[j-1]+(float)i/max;
-		temp[j+1] = temp[j]+(float)i/max;
+	temp[0].acum = (float)(n/2)/max;
+	temp[0].pos = n/2;
+
+	for (i=(n/2)-1; i>=0; i--){
+		temp[j].acum = temp[j-1].acum+(float)i/max;
+		temp[j].pos = i;
+
+		temp[j+1].acum = temp[j].acum+(float)(n-i)/max;
+		temp[j+1].pos = n-i;
+		
 		j+=2;
 	}
+
 	return temp;
 }
+
+
+int genera_demanda_ordenado(ordenado* tabla,int tama)
+{
+	int i;
+	double u = uniforme();
+	i = 0;
+	
+	while((i<tama) && (u>=tabla[i].acum))
+		i++;
+	
+	return tabla[i].pos;
+}
+
 
 int genera_demanda(float* tabla,int tama) // Genera un valor de la 
 									  	  // distribución de la demanda codificada en tabla, por el 
@@ -108,6 +136,7 @@ int genera_demanda(float* tabla,int tama) // Genera un valor de la
 		i++;
 	return i;
 }
+
 
 int genera_demanda_binaria(float* tabla,int tama) {
 	int i;
@@ -144,14 +173,14 @@ int main(int argc, char* argv[])
 {
 	int x = 10,
 		y = 5,
-		veces = 10000,
-		mejora = 3;
+		veces = 1000,
+		mejora = 1;
 
 	char tabla = 'c';
 	
 	int demanda, ganancia, s_maxima;
-	double ganancia_maxima = 0;
 	float* tablabdemanda;
+	ordenado* tablabdemanda_ord;
 
 	srand(time(NULL)); //Inicializa el generador de numeros pseudoaleatorios
 
@@ -160,49 +189,34 @@ int main(int argc, char* argv[])
 	else					tablabdemanda = construye_prop_c(100);
 
 
-	// Ejecutar modelo de Montecarlo
-	for (int s = 1; s < 100; s++){
-		double sum = 0.0, sum2 = 0.0;
-		
-		for (int i = 0; i < veces; i++){
-			if (mejora == 1){
-				tablabdemanda = construye_prop_c_ordenado(100);
-				demanda = genera_demanda(tablabdemanda, 100);
-			}
-			else if (mejora == 2)
-				demanda = genera_demanda_binaria(tablabdemanda, 100);
-			else if (mejora == 3){
-				tablabdemanda = construye_prop_a(100);
-				demanda = genera_demanda_a_mejorado(tablabdemanda, 100);
-			}
-			else
-				demanda = genera_demanda(tablabdemanda, 100);
+	clock_t ini = clock();
+	for (int i = 0; i < veces; ++i)
+		demanda = genera_demanda(tablabdemanda, 100);
+	clock_t fin = clock();
 
 
-
-			if (s > demanda)
-				ganancia = demanda*x - (s-demanda)*y;
-
-			else
-				ganancia = s*x;
-
-			sum += ganancia;
-			sum2 += ganancia*ganancia;
+	if (mejora == 1)	tablabdemanda_ord = construye_prop_c_ordenado(100);
+	clock_t ini_mej = clock();
+	
+	for (int i = 0; i < veces; i++){
+		if (mejora == 1)
+			demanda = genera_demanda_ordenado(tablabdemanda_ord, 100);
+		else if (mejora == 2)
+			demanda = genera_demanda_binaria(tablabdemanda, 100);
+		else if (mejora == 3)
+			demanda = genera_demanda_a_mejorado(tablabdemanda, 100);
+		else{
+			printf("No existe esa mejora\n");
+			exit(0);
 		}
-		
-		// Obtener ganancia media y desviacion tipica
-		double ganancia_esperada = sum/veces,
-			   desviacion = sqrt((sum2-veces*ganancia_esperada*ganancia_esperada)/(veces - 1));
-
-		if (ganancia_esperada > ganancia_maxima){
-			ganancia_maxima = ganancia_esperada;
-			s_maxima = s;
-		}
-
-		printf("s: %d\t\t ganancia: %f\t\t desv: %f\n", s, ganancia_esperada, desviacion);
 	}
 
-	printf("\nValor de x: %d, valor de y: %d, numero de veces: %d, tipo de tabla: %c", x, y, veces, tabla);
-	printf("\nValor maximo de ganancia: %f || s --> %d\n", ganancia_maxima, s_maxima);
+	clock_t fin_mej = clock();
+	double tiempo = (double)(fin-ini) / (double)CLOCKS_PER_SEC;
+	double tiempo_mej = (double)(fin_mej-ini_mej) / (double)CLOCKS_PER_SEC;
+
+	printf("\nTiempo en generar demanda sin mejora: %g segundos\n", tiempo);
+	printf("Mejora aplicada: %d\n", mejora);
+	printf("Tiempo en generar demanda con mejora: %g segundos\n\n", tiempo_mej);
 	return 0;
 }

@@ -88,12 +88,12 @@ int genera_demanda(float* tabla,int tama) // Genera un valor de la
 int main(int argc, char* argv[])
 {
 	int x = 10,
-		y = 5,
-		z = 3,
-		veces = 10000,
-		modificacion = 1;
+		y = 10,
+		z = 200,
+		veces = 100000,
+		modificacion = 2;
 
-	char tabla = 'a';
+	char tabla = 'c';
 	
 	int demanda, ganancia, s_maxima;
 	double ganancia_maxima = 0;

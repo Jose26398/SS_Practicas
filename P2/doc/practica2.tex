@@ -277,134 +277,22 @@ Estará implementada en el código $generadoresModificados.c$ y las pruebas que 
 anteriormente, y asi poder comparar unos resultados con otros. Las ejecuciones nos han dado las siguientes tablas:
 
 \begin{table}[H]
-	\parbox{.45\linewidth}{
 	\centering
-	\begin{tabular}{c|ccc}
-	\textbf{Veces} & \textbf{s} & \textbf{Ganancia} & \textbf{Desviación} \\ \hline
-	\textbf{100}   & 83         & 493.40            & 217.66			  \\ \hline
-	\textbf{1000}  & 77         & 476.39            & 212.23			  \\ \hline
-	\textbf{5000}  & 76         & 466.11            & 205.99 			  \\ \hline
-	\textbf{10000} & 76         & 466.78            & 206.22			  \\ \hline
-	\textbf{100000}& 79         & 464.94            & 212.76			  \\
+	\begin{tabular}{c|cccc}
+	\textbf{\hspace{5mm}z\hspace{5mm}}   & \textbf{Distribución} & \textbf{\hspace{5mm}s\hspace{5mm}} & \textbf{Ganancia} & \textbf{Desviación} \\ \hline
+	\textbf{5}   & uniforme 			 & 95         & 490.45            & 297.18 			  \\
+	\textbf{5}   & proporcional			 & 91         & 326.41            & 236.09			  \\
+	\textbf{5}   & triangular 			 & 95         & 495.37            & 203.63			  \\ \hline
+	\textbf{400} & uniforme 			 & 59         & 178.91            & 367.37 			  \\
+	\textbf{400} & proporcional			 & 20         & 18.58             & 246.17			  \\
+	\textbf{400} & triangular 		     & 44         & 233.82            & 273.39			  \\ \hline
+	\textbf{200} & uniforme 			 & 79         & 318.07            & 317.13 			  \\
+	\textbf{200} & proporcional		     & 61         & 142.47            & 255.30			  \\
+	\textbf{200} & triangular 		     & 55         & 323.75            & 214.21			  \\
 	\end{tabular}
-	\caption{$x=10$, $y=1$}
-	}
-	\hfill
-	\parbox{.45\linewidth}{
-	\centering
-	\begin{tabular}{c|ccc}
-	\textbf{Veces} & \textbf{s} & \textbf{Ganancia} & \textbf{Desviación} \\ \hline
-	\textbf{100}   & 74         & 432.50            & 282.03			  \\ \hline
-	\textbf{1000}  & 62         & 408.09            & 225.36			  \\ \hline
-	\textbf{5000}  & 59         & 389.14            & 218.78 			  \\ \hline
-	\textbf{10000} & 58         & 388.80            & 215.32			  \\ \hline
-	\textbf{100000}& 59         & 386.79            & 221.56 			  \\
-	\end{tabular}
-	\caption{$x=10$, $y=5$}
-	}
-\end{table}
-\begin{table}[H]
-	\centering
-	\begin{tabular}{c|ccc}
-	\textbf{Veces} & \textbf{s} & \textbf{Ganancia} & \textbf{Desviación} \\ \hline
-	\textbf{100}   & 83         & 493.40            & 217.66			  \\ \hline
-	\textbf{1000}  & 77         & 476.39            & 212.23			  \\ \hline
-	\textbf{5000}  & 76         & 466.11            & 205.99 			  \\ \hline
-	\textbf{10000} & 76         & 466.78            & 206.22			  \\ \hline
-	\textbf{100000}& 79         & 464.94            & 212.76			  \\
-	\end{tabular}
-	\caption{$x=10$, $y=10$}
+	\caption{Resultados para todas las distribuciones con $x=10$ y $veces=100000$}
 \end{table}
 
-Como podemos ver....
-
-Estos han sido los resultados para la distribución \textbf{proporcional}:
-
-\begin{table}[H]
-	\parbox{.45\linewidth}{
-	\centering
-	\begin{tabular}{c|ccc}
-	\textbf{Veces} & \textbf{s} & \textbf{Ganancia} & \textbf{Desviación} \\ \hline
-	\textbf{100}   & 86         & 495.68            & 316.09			  \\ \hline
-	\textbf{1000}  & 91         & 472.38            & 308.29			  \\ \hline
-	\textbf{5000}  & 90         & 457.66            & 310.85 			  \\ \hline
-	\textbf{10000} & 91         & 454.09            & 311.94			  \\ \hline
-	\textbf{100000}& 87         & 450.85            & 304.69			  \\
-	\end{tabular}
-	\caption{$x=10$, $y=1$}
-	}
-	\hfill
-	\parbox{.45\linewidth}{
-	\centering
-	\begin{tabular}{c|ccc}
-	\textbf{Veces} & \textbf{s} & \textbf{Ganancia} & \textbf{Desviación} \\ \hline
-	\textbf{100}   & 78         & 322.40            & 285.75			  \\ \hline
-	\textbf{1000}  & 69         & 297.04            & 243.19			  \\ \hline
-	\textbf{5000}  & 71         & 289.95            & 244.48 			  \\ \hline
-	\textbf{10000} & 72         & 287.13            & 227.74			  \\ \hline
-	\textbf{100000}& 67         & 283.75            & 235.86			  \\
-	\end{tabular}
-	\caption{$x=10$, $y=5$}
-	}
-\end{table}
-\begin{table}[H]
-	\centering
-	\begin{tabular}{c|ccc}
-	\textbf{Veces} & \textbf{s} & \textbf{Ganancia} & \textbf{Desviación} \\ \hline
-	\textbf{100}   & 83         & 493.40            & 217.66			  \\ \hline
-	\textbf{1000}  & 77         & 476.39            & 212.23			  \\ \hline
-	\textbf{5000}  & 76         & 466.11            & 205.99 			  \\ \hline
-	\textbf{10000} & 76         & 466.78            & 206.22			  \\ \hline
-	\textbf{100000}& 79         & 464.94            & 212.76			  \\
-	\end{tabular}
-	\caption{$x=10$, $y=10$}
-\end{table}
-
-Como podemos ver.......
-
-Estos han sido los resultados para la distribución \textbf{triangular}:
-
-\begin{table}[H]
-	\parbox{.45\linewidth}{
-	\centering
-	\begin{tabular}{c|ccc}
-	\textbf{Veces} & \textbf{s} & \textbf{Ganancia} & \textbf{Desviación} \\ \hline
-	\textbf{100}   & 86         & 495.68            & 316.09			  \\ \hline
-	\textbf{1000}  & 91         & 472.38            & 308.29			  \\ \hline
-	\textbf{5000}  & 90         & 457.66            & 310.85 			  \\ \hline
-	\textbf{10000} & 91         & 454.09            & 311.94			  \\ \hline
-	\textbf{100000}& 87         & 450.85            & 304.69			  \\
-	\end{tabular}
-	\caption{$x=10$, $y=1$}
-	}
-	\hfill
-	\parbox{.45\linewidth}{
-	\centering
-	\begin{tabular}{c|ccc}
-	\textbf{Veces} & \textbf{s} & \textbf{Ganancia} & \textbf{Desviación} \\ \hline
-	\textbf{100}   & 78         & 322.40            & 285.75			  \\ \hline
-	\textbf{1000}  & 69         & 297.04            & 243.19			  \\ \hline
-	\textbf{5000}  & 71         & 289.95            & 244.48 			  \\ \hline
-	\textbf{10000} & 72         & 287.13            & 227.74			  \\ \hline
-	\textbf{100000}& 67         & 283.75            & 235.86			  \\
-	\end{tabular}
-	\caption{$x=10$, $y=5$}
-	}
-\end{table}
-\begin{table}[H]
-	\centering
-	\begin{tabular}{c|ccc}
-	\textbf{Veces} & \textbf{s} & \textbf{Ganancia} & \textbf{Desviación} \\ \hline
-	\textbf{100}   & 83         & 493.40            & 217.66			  \\ \hline
-	\textbf{1000}  & 77         & 476.39            & 212.23			  \\ \hline
-	\textbf{5000}  & 76         & 466.11            & 205.99 			  \\ \hline
-	\textbf{10000} & 76         & 466.78            & 206.22			  \\ \hline
-	\textbf{100000}& 79         & 464.94            & 212.76			  \\
-	\end{tabular}
-	\caption{$x=10$, $y=10$}
-\end{table}
-
-Podemos ver que las tablas...........
 
 
 \subsection{Cantidad relativa de devolución}
@@ -425,134 +313,43 @@ También estará implementada en $generadoresModificados.c$, y para ejecutarla, 
 de valores, se mantendrán exactamente iguales que en las ejjecuciones anteriores. Los resultados han sido los siguientes:
 
 \begin{table}[H]
-	\parbox{.45\linewidth}{
 	\centering
-	\begin{tabular}{c|ccc}
-	\textbf{Veces} & \textbf{s} & \textbf{Ganancia} & \textbf{Desviación} \\ \hline
-	\textbf{100}   & 86         & 495.68            & 316.09			  \\ \hline
-	\textbf{1000}  & 91         & 472.38            & 308.29			  \\ \hline
-	\textbf{5000}  & 90         & 457.66            & 310.85 			  \\ \hline
-	\textbf{10000} & 91         & 454.09            & 311.94			  \\ \hline
-	\textbf{100000}& 87         & 450.85            & 304.69			  \\
+	\begin{tabular}{c|cccc}
+	\textbf{\hspace{5mm}z\hspace{5mm}}   & \textbf{Distribución} & \textbf{\hspace{5mm}s\hspace{5mm}} & \textbf{Ganancia} & \textbf{Desviación} \\ \hline
+	\textbf{100} & uniforme 			 & 92         & 411.21            & 309.86 			  \\
+	\textbf{100} & proporcional			 & 72         & 238.44            & 247.52			  \\
+	\textbf{100} & triangular 			 & 74         & 415.98            & 217.21			  \\ \hline
+	\textbf{150} & uniforme 			 & 86         & 380.06            & 327.23 			  \\
+	\textbf{150} & proporcional			 & 56         & 206.16            & 249.46			  \\
+	\textbf{150} & triangular 		     & 61         & 396.93            & 211.83			  \\ \hline
+	\textbf{200} & uniforme 			 & 81         & 356.57            & 317.13 			  \\
+	\textbf{200} & proporcional		     & 43         & 189.64            & 225.30			  \\
+	\textbf{200} & triangular 		     & 60         & 390.21            & 219.63			  \\
 	\end{tabular}
-	\caption{$x=10$, $y=1$}
-	}
-	\hfill
-	\parbox{.45\linewidth}{
-	\centering
-	\begin{tabular}{c|ccc}
-	\textbf{Veces} & \textbf{s} & \textbf{Ganancia} & \textbf{Desviación} \\ \hline
-	\textbf{100}   & 78         & 322.40            & 285.75			  \\ \hline
-	\textbf{1000}  & 69         & 297.04            & 243.19			  \\ \hline
-	\textbf{5000}  & 71         & 289.95            & 244.48 			  \\ \hline
-	\textbf{10000} & 72         & 287.13            & 227.74			  \\ \hline
-	\textbf{100000}& 67         & 283.75            & 235.86			  \\
-	\end{tabular}
-	\caption{$x=10$, $y=5$}
-	}
-\end{table}
-\begin{table}[H]
-	\centering
-	\begin{tabular}{c|ccc}
-	\textbf{Veces} & \textbf{s} & \textbf{Ganancia} & \textbf{Desviación} \\ \hline
-	\textbf{100}   & 83         & 493.40            & 217.66			  \\ \hline
-	\textbf{1000}  & 77         & 476.39            & 212.23			  \\ \hline
-	\textbf{5000}  & 76         & 466.11            & 205.99 			  \\ \hline
-	\textbf{10000} & 76         & 466.78            & 206.22			  \\ \hline
-	\textbf{100000}& 79         & 464.94            & 212.76			  \\
-	\end{tabular}
-	\caption{$x=10$, $y=10$}
+	\caption{Resultados para todas las distribuciones con $x=10$, $y=5$ y $veces=100000$}
 \end{table}
 
 Como podemos ver....
 
-Estos han sido los resultados para la distribución \textbf{proporcional}:
-
-\begin{table}[H]
-	\parbox{.45\linewidth}{
-	\centering
-	\begin{tabular}{c|ccc}
-	\textbf{Veces} & \textbf{s} & \textbf{Ganancia} & \textbf{Desviación} \\ \hline
-	\textbf{100}   & 86         & 495.68            & 316.09			  \\ \hline
-	\textbf{1000}  & 91         & 472.38            & 308.29			  \\ \hline
-	\textbf{5000}  & 90         & 457.66            & 310.85 			  \\ \hline
-	\textbf{10000} & 91         & 454.09            & 311.94			  \\ \hline
-	\textbf{100000}& 87         & 450.85            & 304.69			  \\
-	\end{tabular}
-	\caption{$x=10$, $y=1$}
-	}
-	\hfill
-	\parbox{.45\linewidth}{
-	\centering
-	\begin{tabular}{c|ccc}
-	\textbf{Veces} & \textbf{s} & \textbf{Ganancia} & \textbf{Desviación} \\ \hline
-	\textbf{100}   & 78         & 322.40            & 285.75			  \\ \hline
-	\textbf{1000}  & 69         & 297.04            & 243.19			  \\ \hline
-	\textbf{5000}  & 71         & 289.95            & 244.48 			  \\ \hline
-	\textbf{10000} & 72         & 287.13            & 227.74			  \\ \hline
-	\textbf{100000}& 67         & 283.75            & 235.86			  \\
-	\end{tabular}
-	\caption{$x=10$, $y=5$}
-	}
-\end{table}
 \begin{table}[H]
 	\centering
-	\begin{tabular}{c|ccc}
-	\textbf{Veces} & \textbf{s} & \textbf{Ganancia} & \textbf{Desviación} \\ \hline
-	\textbf{100}   & 83         & 493.40            & 217.66			  \\ \hline
-	\textbf{1000}  & 77         & 476.39            & 212.23			  \\ \hline
-	\textbf{5000}  & 76         & 466.11            & 205.99 			  \\ \hline
-	\textbf{10000} & 76         & 466.78            & 206.22			  \\ \hline
-	\textbf{100000}& 79         & 464.94            & 212.76			  \\
+	\begin{tabular}{c|cccc}
+	\textbf{\hspace{5mm}y\hspace{5mm}}   & \textbf{Distribución} & \textbf{\hspace{5mm}s\hspace{5mm}} & \textbf{Ganancia} & \textbf{Desviación} \\ \hline
+	\textbf{3} & uniforme 			 	 & 79         & 381.69            & 334.20 			  \\
+	\textbf{3} & proporcional			 & 54         & 225.98            & 240.16			  \\
+	\textbf{3} & triangular 			 & 64         & 419.09            & 210.75			  \\ \hline
+	\textbf{7} & uniforme 			 	 & 83         & 344.55            & 337.87 			  \\
+	\textbf{7} & proporcional		     & 51         & 172.44            & 258.79			  \\
+	\textbf{7} & triangular 		     & 59         & 373.18            & 225.49			  \\
+	\textbf{10} & uniforme 				 & 81         & 336.49            & 335.62 			  \\
+	\textbf{10} & proporcional			 & 53         & 162.06            & 260.66			  \\
+	\textbf{10} & triangular 		     & 57         & 358.21            & 222.97			  \\ \hline
 	\end{tabular}
-	\caption{$x=10$, $y=10$}
-\end{table}
-
-Como podemos ver.......
-
-Estos han sido los resultados para la distribución \textbf{triangular}:
-
-\begin{table}[H]
-	\parbox{.45\linewidth}{
-	\centering
-	\begin{tabular}{c|ccc}
-	\textbf{Veces} & \textbf{s} & \textbf{Ganancia} & \textbf{Desviación} \\ \hline
-	\textbf{100}   & 86         & 495.68            & 316.09			  \\ \hline
-	\textbf{1000}  & 91         & 472.38            & 308.29			  \\ \hline
-	\textbf{5000}  & 90         & 457.66            & 310.85 			  \\ \hline
-	\textbf{10000} & 91         & 454.09            & 311.94			  \\ \hline
-	\textbf{100000}& 87         & 450.85            & 304.69			  \\
-	\end{tabular}
-	\caption{$x=10$, $y=1$}
-	}
-	\hfill
-	\parbox{.45\linewidth}{
-	\centering
-	\begin{tabular}{c|ccc}
-	\textbf{Veces} & \textbf{s} & \textbf{Ganancia} & \textbf{Desviación} \\ \hline
-	\textbf{100}   & 78         & 322.40            & 285.75			  \\ \hline
-	\textbf{1000}  & 69         & 297.04            & 243.19			  \\ \hline
-	\textbf{5000}  & 71         & 289.95            & 244.48 			  \\ \hline
-	\textbf{10000} & 72         & 287.13            & 227.74			  \\ \hline
-	\textbf{100000}& 67         & 283.75            & 235.86			  \\
-	\end{tabular}
-	\caption{$x=10$, $y=5$}
-	}
-\end{table}
-\begin{table}[H]
-	\centering
-	\begin{tabular}{c|ccc}
-	\textbf{Veces} & \textbf{s} & \textbf{Ganancia} & \textbf{Desviación} \\ \hline
-	\textbf{100}   & 83         & 493.40            & 217.66			  \\ \hline
-	\textbf{1000}  & 77         & 476.39            & 212.23			  \\ \hline
-	\textbf{5000}  & 76         & 466.11            & 205.99 			  \\ \hline
-	\textbf{10000} & 76         & 466.78            & 206.22			  \\ \hline
-	\textbf{100000}& 79         & 464.94            & 212.76			  \\
-	\end{tabular}
-	\caption{$x=10$, $y=10$}
+	\caption{Resultados para todas las distribuciones con $x=10$, $z=200$ y $veces=100000$}
 \end{table}
 
 Podemos ver que las tablas...........
+
 
 
 \chapter{Generadores de datos}
