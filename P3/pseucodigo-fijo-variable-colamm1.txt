@@ -1,0 +1,127 @@
+Pseudocodigo de incremento fijo con un único servidor:
+
+inicializar generadores de datos //imprescindible (por ejemplo, srand(time(NULL)) sirve)
+infinito = 10e30; //tiempo en que ocurren cosas que sabemos no pueden ocurrir
+atendidos = 0; //al principio no hay nadie ya atendido
+inicio_ocio = 0.0; //marcará el momento en que el servidor empieza a estar ocioso
+acum_cola = 0.0; //acumulador de número de clientes en cola por el tiempo en que están en
+                 //dicha cola. El cliente que está siendo atendido NO está en cola
+reloj = 0; //marca el valor del tiempo simulado, inicialmente cero
+servidor = libre; //inicialmente el servidor no está atendiendo a nadie
+encola = 0; //no hay nadie en cola todavía
+tiempo_llegada = reloj + generallegada(tlleg); //en ese tiempo llegará el primer cliente
+tiempo_salida = infinito; //nadie puede salir si nadie ha entrado aun
+while (atendidos < total_a_atender) do //simularemos hasta que hayamos atendido a cierto
+                                       //número de clientes, total_a_atender
+     {
+      if (reloj == tiempo_llegada) //si estamos en el instante en que llega alguien
+       {
+        tiempo_llegada = reloj + generallegada(tlleg); //determinamos cuando llegará
+                                                       //el siguiente cliente
+        if (servidor == libre) //si el servidor está ocioso
+             { 
+              servidor = ocupado; //deja de estarlo
+              tiempo_salida = reloj + generaservicio(tserv); //determinamos cuando saldrá
+                                                       //ese cliente que acaba de llegar
+              ocio += reloj - inicio_ocio; //acumulamos el ocio hasta este momento
+             }
+        else { //el servidor está ocupado
+              acum_cola += (reloj - tultsuc) * encola; //acumulamos el número de clientes en
+                                           //cola por el tiempo en que han estado en cola
+              tultsuc = reloj; //para saber en qué momento cambió el tamaño de la cola, en
+                               //este caso aumentó en uno más
+              encola ++;  //hay un cliente más en cola
+             }
+       }
+      if (reloj = tiempo_salida) //si estamos en el instante en que se va alguien
+       {
+        atendidos ++; //se ha atendido a un cliente más
+        if (encola > 0) //si quedan clientes en cola
+             {
+              acum_cola += (reloj - tultsuc) * encola; // acumulamos el número de clientes en
+                                           //cola por el tiempo en que han estado en cola
+              tultsuc = reloj; //para saber en qué momento cambió el tamaño de la cola, en
+                               //este caso disminuyó en uno
+              encola  --; //hay un cliente menos en cola
+              tiempo_salida = reloj + generaservicio(tserv); //determinamos cuando saldrá
+                                                     //ese cliente que acaba de entrar
+             }
+        else { //no quedan clientes en cola
+              servidor = libre; //el servidor se queda ocioso por falta de clientes
+              inicio_ocio = reloj; //marcamos cuando empieza a estar ocioso
+              tiempo_salida = infinito; //nadie puede salir puesto que nadie hay
+             }
+       }
+       reloj ++;   //el tiempo se incrementa en una unidad
+      }
+porcent_ocio = ocio*100/reloj; //calculamos el porcentaje de tiempo de ocio del servidor
+print(porcent_ocio);
+media_encola = acum_cola/reloj; //calculamos el número medio de clientes en cola
+print(media_encola);
+
+////////////////////////////////////////////////////////////////////////////////
+
+Generador de datos exponencial:
+
+float generallegada(tlleg)
+
+ u = (float) random(); // o también rand() en lugar de random()
+ u = (float) (u/(RAND_MAX+1.0); //RAND_MAX es una constante del sistema
+ return (-tlleg*log(1-u));
+
+
+////////////////////////////////////////////////////////////////////////////////////
+
+Pseudocódigo de incremento variable con un único servidor
+
+inicializar generadores de datos
+infinito = 10e30;
+atendidos = 0;
+inicio_ocio = 0.0;
+acum_cola = 0.0;
+reloj = 0.0;
+servidor = libre;
+encola = 0;
+tiempo_llegada = reloj + generallegada(tlleg);
+tiempo_salida = infinito;
+while (atendidos < total_a_atender) do
+     {
+      reloj = min(tiempo_llegada,tiempo_salida); //una función que calcula el mínimo
+      if (reloj == tiempo_llegada)
+       {
+        tiempo_llegada = reloj + generallegada(tlleg);
+        if (servidor == libre)
+             {
+              servidor = ocupado;
+              tiempo_salida = reloj + generaservicio(tserv);
+              ocio += reloj - inicio_ocio;
+             }
+        else {
+              acum_cola += (reloj - tultsuc) * encola;
+              tultsuc = reloj;
+              encola ++;
+             }
+       }
+      if (reloj = tiempo_salida)
+       {
+        atendidos ++;
+        if (encola > 0)
+             {
+              acum_cola += (reloj - tultsuc) * encola;
+              tultsuc = reloj;
+              encola  --;
+              tiempo_salida = reloj + generaservicio(tserv);
+             }
+        else {
+              servidor = libre;
+              inicio_ocio = reloj;
+              tiempo_salida = infinito;
+             }
+       }
+      }
+porcent_ocio = ocio*100/reloj;
+print(porcent_ocio);
+media_encola = acum_cola / reloj;
+print(media_encola);
+
+//////////////////////////////////////////////////////////////////////////
