@@ -10,6 +10,35 @@
 \usepackage{enumitem}						% Permitir enumerate con distintos simbolos
 \usepackage[T1]{fontenc}					% Usar textsc en sections
 \usepackage{amsmath}						% Símbolos matemáticos
+\usepackage{listings}
+\usepackage{color}
+
+ 
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.95}
+ 
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=mystyle, language=C++}
 
 % Comando para poner el nombre de la asignatura
 \newcommand{\asignatura}{Simulación de Sistemas}
@@ -76,11 +105,48 @@
 
 \setlength{\parskip}{1em}
 
-\chapter{Mi segundo modelo de simulación Discreto}
+\chapter{Mi segundo modelo de simulación Discreto}
 
-Un establecimiento se abastece diariamente de un cierto producto, y necesita decidir cuántas unidades \textbf{s} de ese producto
-pedir cada día Se desea encontrar el valor de $s$ donde se maximice la ganancia esperada. Obtenemos una ganancia de \textbf{x}
+Nuestro modelo de simulación consistirá en un servidor que presta un determinado servicio a una serie de clientes, los cuales solicitarán dicho servicio
+periódicamente. Cuando llega un cliente y el servidor no está ocupado, será atendido inmediatamente; en caso contrario, el cliente tendrá que esperar en
+la cola. Cuando se completa un servicio, el servidor elegirá al siguiente en una forma FIFO.
+
+Al empezar la simulación, no habrá clientes esperando y el servidor está libre. Utilizaremos el mismo generador exponencial tanto para el tiempo que tardarán
+en llegar los clientes, como el tiempo que tardará el servidor en atender a cada uno.
+
+
+\section{Simulación con incremento fijo de tiempo}
+
+En esta simulación, vamos a tratar al tiempo incrementándolo de unidad en unidad. Para evitar problemas con el manejo del tiempo, tendremos que modificar
+los generadores de datos para que nos devuelvan los valores redondeados al entero más próximo. Si obtenemos un valor igual a 0, devolveremos 1 en su lugar,
+ya que el suceso generado quedaría en un tiempo anterior al actual, que generamos al incrementar en una unidad.
+
+Este será nuestro código resultante, que nos servirá tanto para generar el tiempo de llegada del cliente como para generar el timepo del servicio (sólo
+tendremos que modificar la variable $tlleg$ por $tserv$):
+\newpage
+\begin{lstlisting}
+float generallegada(float tlleg){
+	float u = random();         // o tambien rand() en lugar de random()
+	u = ( u / (RAND_MAX+1.0) ); //RAND_MAX es una constante del sistema
+	u = round( -tlleg * log(1-u) );
+
+	if (u != 0)
+		return u;
+	else
+		return 1.0;
+}
+\end{lstlisting}
+
+
+Para la simulación vamos a emplear diferentes unidades de medida de tiempo (horas, minutos, segundos...) y con un número de clientes a atender bastante alto,
+de unos 10.000, para que los resultados sean robustos. Este es el resultado que obtenemos:
+
+Tabla con los resultados....
+
+Como podemos ver...........
+
+
+\section{Simulación con incremento variable de tiempo}
 
 
 \end{document}
-
