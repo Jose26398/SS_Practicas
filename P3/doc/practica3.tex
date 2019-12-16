@@ -148,5 +148,19 @@ Como podemos ver...........
 
 \section{Simulación con incremento variable de tiempo}
 
+Ahora vamos a tratar el mismo problema pero con un incremento de tiempo variable, para hacerlo más eficiente y preciso. En este caso, la variable no tendrá ni
+por qué ser un entero ni tendremos que parsear los generadores de datos, ya que se incrementará su valor hasta el suceso más cercano. Decimos que es más preciso
+porque no tiene que dar los saltos que daba el anterior modelo y, en consecuencia, gana en eficiencia ya que va suceso a suceso.
+
+Esta es la nueva línea de código que tendremos que añadir (también quitaremos la que aumenta el tiempo de manera uniforme $reloj++$):
+\begin{lstlisting}
+reloj = min(tiempo_llegada,tiempo_salida)
+\end{lstlisting}
+
+A contiinuación, vamos a ejecutar este modelo de la misma forma que hemos hecho con el modelo anterior y óbservar los cambios que se obtienen:
+
+Tabla con los resultados.....................
+
+Vemos que los resultados han sido
 
 \end{document}
