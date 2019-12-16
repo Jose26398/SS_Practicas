@@ -141,7 +141,20 @@ float generallegada(float tlleg){
 Para la simulación vamos a emplear diferentes unidades de medida de tiempo (horas, minutos, segundos...) y con un número de clientes a atender bastante alto,
 de unos 10.000, para que los resultados sean robustos. Este es el resultado que obtenemos:
 
-Tabla con los resultados....
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[H]
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{c|c|c|c|c}
+\textbf{tiempo} & \textbf{tlleg} & \textbf{tserv} & \textbf{\% tiempo ocioso} & \textbf{Media clientes en cola} \\ \hline
+horas           & 0.15           & 0.1            & 0.019994                  & 0.000000                        \\ \hline
+medias horas    & 0.3            & 0.2            & 0.625621                  & 0.078153                        \\ \hline
+cuartos de hora & 0.6            & 0.4            & 7.224885                  & 0.356633                        \\ \hline
+minutos         & 9              & 6              & 31.501728                 & 1.647961                        \\ \hline
+segundos        & 540            & 360            & 33.934223                 & 1.282934                        \\
+\end{tabular}%
+}
+\end{table}
 
 Como podemos ver...........
 

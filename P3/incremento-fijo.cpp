@@ -53,9 +53,9 @@ int main(int argc, char *argv[])
 	sscanf(argv[2],"%f",&tlleg);
 	sscanf(argv[3],"%f",&tserv);
 
+	// for (int i = 0; i < 150; ++i){	
 
-
-	int infinito = 10e6; 	//tiempo en que ocurren cosas que sabemos no pueden ocurrir
+	int infinito = 1e7; 	//tiempo en que ocurren cosas que sabemos no pueden ocurrir
 	int atendidos = 0; 	//al principio no hay nadie ya atendido
 	float inicio_ocio = 0; 	//marcará el momento en que el servidor empieza a estar ocioso
 	float acum_cola = 0;	//acumulador de número de clientes en cola por el tiempo en que están en
@@ -67,8 +67,6 @@ int main(int argc, char *argv[])
 	int tiempo_salida = infinito;
 	int tultsuc = 0;
 	float ocio = 0;
-
-	srand(time(NULL));
 
 	clock_t ini = clock();
 	while (atendidos < total_a_atender)
@@ -118,6 +116,7 @@ int main(int argc, char *argv[])
 	printf("Número medio de clientes en cola: %f\n", media_encola);
 	
 	double tiempo = (double)(fin-ini) / (double)CLOCKS_PER_SEC;
-	printf("Tiempo de ejecución: %g segundos\n", tiempo);
+	printf("Tiempo de ejecución: %g segundos\n\n", tiempo);
+	// }
 
 }
