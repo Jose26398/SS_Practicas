@@ -9,7 +9,7 @@
 \usepackage[nottoc]{tocbibind}				% Referencias (no incluir num pagina indice en Indice)
 \usepackage{enumitem}						% Permitir enumerate con distintos simbolos
 \usepackage[T1]{fontenc}					% Usar textsc en sections
-\usepackage{amsmath}						% Símbolos matemáticos
+\usepackage{amsmath, yhmath}				% Símbolos matemáticos
 \usepackage{listings}
 \usepackage{color}
 
@@ -140,9 +140,6 @@ float generallegada(float tlleg){
 
 Para la simulación vamos a emplear diferentes unidades de medida de tiempo (horas, minutos, segundos...) y con un número de clientes a atender bastante alto,
 de unos 10.000, para que los resultados sean robustos. Este es el resultado que obtenemos:
-
-% Please add the following required packages to your document preamble:
-% \usepackage{graphicx}
 \begin{table}[H]
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{c|c|c|c|c}
@@ -156,13 +153,37 @@ segundos        & 540            & 360            & 33.934223                 & 
 }
 \end{table}
 
-Como podemos ver...........
+Como podemos ver, los porcentajes de tiempo ocioso del servidor tienen una variación bastante grande. Esto se debe a que los valores pequeños (unidades de tiempo
+más altas como las horas o la medias horas) producen unos valores muy próximos a cero en los generadores y, en consecuencia, son redondeados. Como ya hemos visto,
+estos valores no serán devueltos como 0, si no como 1.
+
+Con esto estamos diciendo que un suceso dura más de lo que realmente es, y vamos acumulando este error en toda la simulación. Esta es la razón por la cual los
+modelos de incremento fijo no son los más apropiados, ya que sus valores son bastante diferentes a los que obtendríamos sobre el papel.
+
+A continuación, vamos a mostrar unas gráficas con diversas ejecuciones para comprobar que los resultados obtenidos son coherentes y ver mejor las diferencias que
+obtenemos al utilizar distintas medidas tiempo:
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.5\textwidth}
+  \centering
+  \includegraphics[scale=0.4]{img/incremento-fijo-ocioso.png}
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+  \centering
+  \includegraphics[scale=0.4]{img/incremento-fijo-cola.png}
+\end{minipage}
+\caption{Porcentaje de tiempo ocioso del servidor y media de clientes en cola}
+\end{figure}
+
+Aqui podemos observa cómo las gráficas van teniendo un porcentaje de ocupación y un número de clientes en cola más alto a medida que disminuimos las valores $tlleg$
+y $tserv$. También podemos observar que, pese a que cada una de las líneas rondan un rango de valores, existe cierta variabilidad en los resultados; por lo cual sería
+un poco irresponsable fiarnos de un solo dato como el de la tabla.
 
 
 \section{Simulación con incremento variable de tiempo}
 
-Ahora vamos a tratar el mismo problema pero con un incremento de tiempo variable, para hacerlo más eficiente y preciso. En este caso, la variable no tendrá ni
-por qué ser un entero ni tendremos que parsear los generadores de datos, ya que se incrementará su valor hasta el suceso más cercano. Decimos que es más preciso
+Ahora vamos a tratar el mismo problema pero con un incremento de tiempo variable, para hacerlo más eficiente y preciso. En este caso, la variable no tendrá ni por
+qué ser un entero ni tendremos que parsear los generadores de datos, ya que se incrementará su valor hasta el suceso más cercano. Decimos que es más preciso porque
 porque no tiene que dar los saltos que daba el anterior modelo y, en consecuencia, gana en eficiencia ya que va suceso a suceso.
 
 Esta es la nueva línea de código que tendremos que añadir (también quitaremos la que aumenta el tiempo de manera uniforme $reloj++$):
@@ -170,10 +191,82 @@ Esta es la nueva línea de código que tendremos que añadir (también quitaremo
 reloj = min(tiempo_llegada,tiempo_salida)
 \end{lstlisting}
 
-A contiinuación, vamos a ejecutar este modelo de la misma forma que hemos hecho con el modelo anterior y óbservar los cambios que se obtienen:
+A continuación, vamos a ejecutar este modelo de la misma forma que hemos hecho con el modelo anterior y óbservar los cambios que se obtienen:
 
 Tabla con los resultados.....................
 
-Vemos que los resultados han sido
+Vemos que los resultados esta vez han sido más regulares, ya que para todas las medidas de tiempo se han obtenido unos valores entre el 33 y el 34 por ciento. A
+diferencia del modelo anterior, en este podríamos decir que los resultados son bastante más fiables independientemente de si utilizamos horas, minutos, segundos...
+Esto es debido a que ahora no tenemos la acumulación del error que teníamos anteriormente, y los sucesos se producen siempre en el momento declarado, sin ponderar.
+
+Imagenes de la ejecucion ..............................
+
+Si observamos ahora las gráficas con las diversas ejecuciones, vemos que están prácticamente todas unas encima de otras. Como acabamos de decir, ya no tenemos este
+error en las distintas medidas de tiempo. No obstante, vemos que aún tenemos bastante variabilidad en los datos, llegando algunos a máximos como XX o a mínimos
+como XX.
+
+Por otra parte, esta mejora no sólo afecta a las medidas de tiempo, si no que también afecta a la eficiencia. En el modelo anterior, los incrementos en el reloj
+dependen de la medida del tiempo; mientras que en el modelo actual, el número de incrementos dependerá del número de sucesos. Vamos a comprobarlo extrayendo una
+tabla que compare los tiempos de ejecución para todas las medidas con incremento fijo, con las mismas medidas en incremento variable:
+
+Table de tiempos..............................
+
+Podemos ver que el tiempo de ejecución en el modelo con incremento fijo va aumentando lo que parece lineal o exponencialemente, mientras que en el modelo con
+incremento variable tenemos unos tiempos prácticamente iguales en unas ejecuciones y otras.
+
+Gráfica de teimpos???????????????
+
+En la gráfica lo podemos confirmar?. Tras estudiar los dos modelos, concluímos que utilizar uno de incremento variable sería lo acertado, no sólo por la mayor
+eficiencia en tiempo que nos da, si no por algo más importante como es la precisión y calidad al trabajar con distintos tipos de datos o unidades de medida.
+
+
+\section{Programa de simulación dinámico y discreto}
+
+Ejecucion con m=1 para ver si son iguales a los teoricos
+
+\begin{itemize}[label=\textbullet]
+	\item Tiempo medio de espera en cola
+		  $= \frac{tserv^2}{tlleg-tserv} = \frac{6^2}{9-6} = \frac{36}{3} = 12$
+	\item Tiempo medio de estancia en el sistema
+		  $= \frac{tserv \cdot tlleg}{tlleg-tserv} = \frac{6 \cdot 9}{9-6} = \frac{54}{3} = 18$
+	\item Número medio de clientes en cola
+		  $= \frac{tserv^2}{tlleg (tlleg-tserv)} = \frac{6^2}{9\cdot (9-6)} = \frac{36}{27} = 1.\wideparen{3}$
+	\item Número medio de clientes en el sistema
+		  $= \frac{tserv}{tlleg-tserv} = \frac{6}{9-6} = \frac{6}{3} = 2$
+	\item Longitud media de colas no vacías
+		  $= \frac{tlleg}{tlleg-tserv} = \frac{9}{9-6} = \frac{9}{3} = 3$
+	\item Porcentaje de tiempo de ocio del servidor
+		  $= \big(1 - \frac{tserv}{tlleg}\big) \cdot 100 = \big(1 - \frac{6}{9}\big) \cdot 100 = \frac{100}{3} = 33.\wideparen{3}$
+\end{itemize}
+
+Aumentamos el número de servidores pero manteniendo un equilibrio.
+
+Modificad el programa para que pueda repetir varias veces la simulación.
+
+Reemplazar generadores exponenciales por determinísticos y/o uniformes.
+
+
+
+
+
+
+
+\chapter{Mi tercer modelo de simulación Discreto}
+
+\section{Remolcador de un puerto}
+
+
+\section{Mejoras propuestas para el remolcador}
+
+
+
+
+\chapter{Análisis de Salidas y Experimentación}
+
+\section{¿Cuánto hay que simular?}
+
+\section{Intervalos de confianza}
+
+\section{Comparación de más de dos sistemas}
 
 \end{document}
