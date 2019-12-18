@@ -9,7 +9,7 @@
 \usepackage[nottoc]{tocbibind}				% Referencias (no incluir num pagina indice en Indice)
 \usepackage{enumitem}						% Permitir enumerate con distintos simbolos
 \usepackage[T1]{fontenc}					% Usar textsc en sections
-\usepackage{amsmath, yhmath}				% Símbolos matemáticos
+\usepackage{amsmath}				% Símbolos matemáticos
 \usepackage{listings}
 \usepackage{color}
 
@@ -193,36 +193,84 @@ reloj = min(tiempo_llegada,tiempo_salida)
 
 A continuación, vamos a ejecutar este modelo de la misma forma que hemos hecho con el modelo anterior y óbservar los cambios que se obtienen:
 
-Tabla con los resultados.....................
+\begin{table}[H]
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{c|c|c|c|c}
+\textbf{tiempo} & \textbf{tlleg} & \textbf{tserv} & \textbf{\% tiempo ocioso} & \textbf{Media clientes en cola} \\ \hline
+horas           & 0.15           & 0.1            & 33.993752                 & 1.260754                        \\ \hline
+medias horas    & 0.3            & 0.2            & 33.555038                 & 1.250663                        \\ \hline
+cuartos de hora & 0.6            & 0.4            & 34.353592                 & 1.382941                        \\ \hline
+minutos         & 9              & 6              & 34.451107                 & 1.211860                        \\ \hline
+segundos        & 540            & 360            & 33.695103                 & 1.261086                        \\
+\end{tabular}%
+}
+\end{table}
 
 Vemos que los resultados esta vez han sido más regulares, ya que para todas las medidas de tiempo se han obtenido unos valores entre el 33 y el 34 por ciento. A
 diferencia del modelo anterior, en este podríamos decir que los resultados son bastante más fiables independientemente de si utilizamos horas, minutos, segundos...
 Esto es debido a que ahora no tenemos la acumulación del error que teníamos anteriormente, y los sucesos se producen siempre en el momento declarado, sin ponderar.
-
-Imagenes de la ejecucion ..............................
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.5\textwidth}
+  \centering
+  \includegraphics[scale=0.4]{img/incremento-variable-ocioso.png}
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+  \centering
+  \includegraphics[scale=0.4]{img/incremento-variable-cola.png}
+\end{minipage}
+\caption{Porcentaje de tiempo ocioso del servidor y media de clientes en cola}
+\end{figure}
 
 Si observamos ahora las gráficas con las diversas ejecuciones, vemos que están prácticamente todas unas encima de otras. Como acabamos de decir, ya no tenemos este
-error en las distintas medidas de tiempo. No obstante, vemos que aún tenemos bastante variabilidad en los datos, llegando algunos a máximos como XX o a mínimos
-como XX.
+error en las distintas medidas de tiempo. No obstante, vemos que aún tenemos bastante variabilidad en los datos, llegando algunos a máximos como 42 o a mínimos
+como 27.
 
 Por otra parte, esta mejora no sólo afecta a las medidas de tiempo, si no que también afecta a la eficiencia. En el modelo anterior, los incrementos en el reloj
 dependen de la medida del tiempo; mientras que en el modelo actual, el número de incrementos dependerá del número de sucesos. Vamos a comprobarlo extrayendo una
 tabla que compare los tiempos de ejecución para todas las medidas con incremento fijo, con las mismas medidas en incremento variable:
-
-Table de tiempos..............................
+\begin{table}[H]
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{c|c|c|c|c}
+\textbf{tiempo} & \textbf{tlleg} & \textbf{tserv} & \textbf{tiempo fijo} & \textbf{tiempo variable} \\ \hline
+horas           & 0.15           & 0.1            & 0.001671             & 0.002071                 \\ \hline
+medias horas    & 0.3            & 0.2            & 0.002937             & 0.002562                 \\ \hline
+cuartos de hora & 0.6            & 0.4            & 0.003491             & 0.001119                 \\ \hline
+minutos         & 9              & 6              & 0.003358             & 0.001464                 \\ \hline
+segundos        & 540            & 360            & 0.020543             & 0.002939                 \\
+\end{tabular}%
+}
+\end{table}
 
 Podemos ver que el tiempo de ejecución en el modelo con incremento fijo va aumentando lo que parece lineal o exponencialemente, mientras que en el modelo con
 incremento variable tenemos unos tiempos prácticamente iguales en unas ejecuciones y otras.
 
-Gráfica de teimpos???????????????
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{img/tiempos.png}
+\caption{En azul los tiempos con incremento fijo y, en naranja, variable.}
+\end{figure}
 
-En la gráfica lo podemos confirmar?. Tras estudiar los dos modelos, concluímos que utilizar uno de incremento variable sería lo acertado, no sólo por la mayor
+En la gráfica lo podemos corroborar. Tras estudiar los dos modelos, concluímos que utilizar uno de incremento variable sería lo acertado, no sólo por la mayor
 eficiencia en tiempo que nos da, si no por algo más importante como es la precisión y calidad al trabajar con distintos tipos de datos o unidades de medida.
+
+
 
 
 \section{Programa de simulación dinámico y discreto}
 
-Ejecucion con m=1 para ver si son iguales a los teoricos
+En esta sección vamos a abordar un problema similar al anterior, pero con una cantidad de $m$ servidores idénticos trabajando en paralelo. La cola de clientes
+seguirá siendo la misma, tratando a los clientes del mismo método FIFO. Si utilizamos más de un servidor en complicado, pero con $m=1$ es posible obtener los
+valores teóricos de casi todas las medidas de rendimiento.
+
+Vamos a ejecutar el programa para ver qué resultamos obtenemos. Lo haremos con unos parámetros como los anteriores ($parada=10.000$, $tlleg=9$ y $tserv=6$):
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{img/cola-m1.png}
+\caption{Ejecución del programa colammk con $m=1$.}
+\end{figure}
+
+Una vez obtenidos estos valores, vamos a contrastarlos con los teóricos. Lo primero es calcularlos:
 
 \begin{itemize}[label=\textbullet]
 	\item Tiempo medio de espera en cola
@@ -230,20 +278,77 @@ Ejecucion con m=1 para ver si son iguales a los teoricos
 	\item Tiempo medio de estancia en el sistema
 		  $= \frac{tserv \cdot tlleg}{tlleg-tserv} = \frac{6 \cdot 9}{9-6} = \frac{54}{3} = 18$
 	\item Número medio de clientes en cola
-		  $= \frac{tserv^2}{tlleg (tlleg-tserv)} = \frac{6^2}{9\cdot (9-6)} = \frac{36}{27} = 1.\wideparen{3}$
+		  $= \frac{tserv^2}{tlleg (tlleg-tserv)} = \frac{6^2}{9\cdot (9-6)} = \frac{36}{27} = 1.3$
 	\item Número medio de clientes en el sistema
 		  $= \frac{tserv}{tlleg-tserv} = \frac{6}{9-6} = \frac{6}{3} = 2$
 	\item Longitud media de colas no vacías
 		  $= \frac{tlleg}{tlleg-tserv} = \frac{9}{9-6} = \frac{9}{3} = 3$
 	\item Porcentaje de tiempo de ocio del servidor
-		  $= \big(1 - \frac{tserv}{tlleg}\big) \cdot 100 = \big(1 - \frac{6}{9}\big) \cdot 100 = \frac{100}{3} = 33.\wideparen{3}$
+		  $= \big(1 - \frac{tserv}{tlleg}\big) \cdot 100 = \big(1 - \frac{6}{9}\big) \cdot 100 = \frac{100}{3} = 33.3$
 \end{itemize}
 
-Aumentamos el número de servidores pero manteniendo un equilibrio.
+Como podemos ver, los resultados se ajustan bastante bien a los que esperábamos teóricamente. Esto se debe, en parte, a que la simulación se ha realizado con
+un tiempo de parada muy alto, es decir, la simulación ha durado bastante tiempo y las medias que se obtienen son lo suficientemente representativas.
 
-Modificad el programa para que pueda repetir varias veces la simulación.
+Si probamos con un tiempo de parada bajo, los resultados serán más impredecibles o variables, como se muestra a continuación:
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{img/cola2-m1.png}
+\caption{Ejecución del programa colammk con $m=1$ y tiempo bajo.}
+\end{figure}
+
+
+Ahora vamos a aumentar el número de servidores $m$, pero manteniendo un equilibrio. El tiempo de servicio dividido por el número de servidores tiene que
+permanecer constante. Vamos a modificar el programa para que repita varias veces la simulación y calcule las medias y desviaciones típicas de las medidas
+de rendimiento.
+
+Las líneas más importantes que se han modificadas son las siguientes:
+\begin{lstlisting}
+void fin(){
+	....
+	// Variables nuevas para medias y desviaciones
+	retrasoMedio += retrasomedio;
+	estanciaMedia += estanciamedia;
+	enColaMedio += encolamedio;
+	enSistemaMedia += ensistemamedio;
+	colasMedia += colasnovaciasmedio;
+	porcentajeOcioMedio += porcentajemedioocio;
+	longMaxCola += maximacola;
+
+	retrasoMedioDes += pow(retrasomedio, 2);
+	estanciaMediaDes += pow(estanciamedia, 2);
+	enColaMedioDes += pow(encolamedio, 2);
+	enSistemaMedioDes += pow(ensistemamedio, 2);
+	colasMediaDes += pow(colasnovaciasmedio, 2);
+	porcentajeOcioMedioDes += pow(porcentajemedioocio, 2);
+	longMaxColaDes += pow(maximacola, 2);
+}
+\end{lstlisting}
+\begin{lstlisting}
+float calcularDesviacion(float suma, float media)
+{
+    float desviacion = suma - (n_simulaciones * pow(media, 2));
+    desviacion = desviacion / (n_simulaciones - 1);
+
+    return sqrt(desviacion);
+}
+\end{lstlisting}
+
+Por último ya tenemos el bucle for, la división entre el número de simulaciones para hacer la media y desviaciones típicas, y posteriormente imprimimos
+los resultados.
+
+
+
 
 Reemplazar generadores exponenciales por determinísticos y/o uniformes.
+
+
+
+
+
+
+
+
 
 
 
@@ -270,3 +375,6 @@ Reemplazar generadores exponenciales por determinísticos y/o uniformes.
 \section{Comparación de más de dos sistemas}
 
 \end{document}
+
+
+

@@ -44,6 +44,24 @@ float init_sincola;
 int maximacola;
 bool parar;
 
+int n_simulaciones = 50;
+
+float retrasoMedio = 0.0,
+      estanciaMedia = 0.0,
+      enColaMedio = 0.0,
+      enSistemaMedia = 0.0,
+      colasMedia = 0.0,
+      porcentajeOcioMedio = 0.0,
+      longMaxCola = 0.0;
+
+float retrasoMedioDes = 0.0,
+      estanciaMediaDes = 0.0,
+      enColaMedioDes = 0.0,
+      enSistemaMedioDes = 0.0,
+      colasMediaDes = 0.0,
+      porcentajeOcioMedioDes = 0.0,
+      longMaxColaDes = 0.0;
+
 bool compare(const suc &s1, const suc &s2)
 { return s1.tiempo < s2.tiempo; }
 
@@ -76,7 +94,7 @@ float generaservicio(float media)
 /* Procedimiento inicializacion */
 void inicializacion()
 {
-	srandom(time(NULL));
+	// srandom(time(NULL));
 	reloj = 0.0;
 	libres = m;
 	encola = 0;
@@ -99,7 +117,7 @@ void inicializacion()
 	nodo.suceso = suceso_finsimulacion;
 	nodo.tiempo = reloj+tparada;
 	nodo.retraso = nada;
-	insertar_lsuc(nodo); //tparada es un parámetro de entrada al programa
+	insertar_lsuc(nodo); //tparada es un parÃ¡metro de entrada al programa
 	//Inicializar el suceso monitor si que quiere trazar alguna medida del rendimiento a lo largo del tiempo, no solo al final
 	/* 
 	nodo.suceso = suceso_monitor;
@@ -182,34 +200,48 @@ void salida()
 
 void fin()
 {
-	parar = true; //para detener la simulación
-								//habrá que hacer las últimas actualizaciones de algunas variables
+	parar = true; //para detener la simulaciÃ³n
+								//habrÃ¡ que hacer las Ãºltimas actualizaciones de algunas variables
 	float retrasomedio = acum_retraso/atendidos;
-	printf("Tiempo medio de espera en cola = %.3f",retrasomedio);
+	// printf("Tiempo medio de espera en cola = %.3f",retrasomedio);
 	float estanciamedia = retrasomedio + tserv;
-	printf("\nTiempo medio de estancia en el sistema = %.3f",estanciamedia);
+	// printf("\nTiempo medio de estancia en el sistema = %.3f",estanciamedia);
 	acum_cola += (reloj - tultsuc_cola) * encola;
-
-	//printf("\nTiempo medio de espera en cola bis = %.3f",acum_cola/atendidos);
-	//printf("\nTiempo medio de estancia en el sistema bis= %.3f",acum_cola/atendidos+tserv);
-
-
+	// printf("\nTiempo medio de espera en cola bis = %.3f",acum_cola/atendidos);
+	// printf("\nTiempo medio de estancia en el sistema bis= %.3f",acum_cola/atendidos+tserv);
 	float encolamedio = acum_cola/reloj;
-	printf("\nNumero medio de personas en cola = %.3f",encolamedio);
+	// printf("\nNumero medio de personas en cola = %.3f",encolamedio);
 	acum_sistema += (reloj - tultsuc_sistema) * ensistema;
 	float ensistemamedio = acum_sistema/reloj;
-	printf("\nNumero medio de personas en el sistema = %.3f",ensistemamedio);
+	// printf("\nNumero medio de personas en el sistema = %.3f",ensistemamedio);
 	if (encola == 0) acum_sincola += reloj - init_sincola;
 	float colasnovaciasmedio = acum_cola/(reloj - acum_sincola);
-	printf("\nLongitud media de colas no vacias = %.3f",colasnovaciasmedio);
+	// printf("\nLongitud media de colas no vacias = %.3f",colasnovaciasmedio);
 	acum_ocio += (reloj - tultsuc_ocio) * libres;
 	float porcentajemedioocio = 100*acum_ocio/(m*reloj);
-	printf("\nporcentaje medio de tiempo de ocio por servidor = %.3f",porcentajemedioocio);
-	printf("\nLongitud maxima de la cola = %d\n",maximacola);
-	printf("\n");
+	// printf("\nporcentaje medio de tiempo de ocio por servidor = %.3f",porcentajemedioocio);
+	// printf("\nLongitud maxima de la cola = %d\n",maximacola);
+	// printf("\n");
+
+	// Variables nuevas para medias y desviaciones
+	retrasoMedio += retrasomedio;
+    estanciaMedia += estanciamedia;
+    enColaMedio += encolamedio;
+    enSistemaMedia += ensistemamedio;
+    colasMedia += colasnovaciasmedio;
+    porcentajeOcioMedio += porcentajemedioocio;
+    longMaxCola += maximacola;
+
+    retrasoMedioDes += pow(retrasomedio, 2);
+    estanciaMediaDes += pow(estanciamedia, 2);
+    enColaMedioDes += pow(encolamedio, 2);
+    enSistemaMedioDes += pow(ensistemamedio, 2);
+    colasMediaDes += pow(colasnovaciasmedio, 2);
+    porcentajeOcioMedioDes += pow(porcentajemedioocio, 2);
+    longMaxColaDes += pow(maximacola, 2);
 }
 
-//Si se desea monitorizar, por ejemplo el número medio de clientes en sistema a lo largo del tiempo se puede usar el suceso monitor siguiente, que habrá que inicializar
+//Si se desea monitorizar, por ejemplo el nÃºmero medio de clientes en sistema a lo largo del tiempo se puede usar el suceso monitor siguiente, que habrÃ¡ que inicializar
 void monitor()
 {
 	nodo.suceso = suceso_monitor;
@@ -232,6 +264,14 @@ void suceso()
 	}
 }
 
+float calcularDesviacion(float suma, float media)
+{
+    float desviacion = suma - (n_simulaciones * pow(media, 2));
+    desviacion = desviacion / (n_simulaciones - 1);
+
+    return sqrt(desviacion);
+}
+
 int main(int argc, char *argv[])
 {
 	int i;
@@ -246,11 +286,40 @@ int main(int argc, char *argv[])
 	sscanf(argv[3],"%f",&tlleg);
 	sscanf(argv[4],"%f",&tserv);
 	
-	inicializacion();
+	srandom(time(NULL));
 
-	while (!parar)
-	{
-		temporizacion();
-		suceso();
-	}
+    for (int i = 0; i < n_simulaciones; i++)
+    {
+        inicializacion();
+        while (!parar)
+        {
+            temporizacion();
+            suceso();
+        }
+    }
+
+    float retraso = retrasoMedio / n_simulaciones,
+          estancia = estanciaMedia / n_simulaciones,
+          cola = enColaMedio / n_simulaciones,
+          sistema = enSistemaMedia / n_simulaciones,
+          vacias = colasMedia / n_simulaciones,
+          ocio = porcentajeOcioMedio / n_simulaciones,
+          maxima = longMaxCola / n_simulaciones;
+    
+    float retrasoDes = calcularDesviacion(retrasoMedioDes, retraso),
+          estanciaDes = calcularDesviacion(estanciaMediaDes, estancia),
+          colaDes = calcularDesviacion(enColaMedioDes, cola),
+          sistemaDes = calcularDesviacion(enSistemaMedioDes, sistema),
+          vaciasDes = calcularDesviacion(colasMediaDes, vacias),
+          ocioDes = calcularDesviacion(porcentajeOcioMedioDes, ocio),
+          maximaDes = calcularDesviacion(longMaxColaDes, maxima);
+    
+    cout << "\nVALORES MEDIOS Y DESVIACIONES" << endl;
+    cout << "Tiempo medio de espera en cola -> media: " << retraso << " dev: " << retrasoDes << endl;
+    cout << "Tiempo medio de estancia en el sistema -> media: " << estancia << " dev: " << estanciaDes << endl;
+    cout << "Numero medio de personas en cola -> media: " << cola << " dev: " << colaDes << endl;
+    cout << "Numero medio de personas en el sistema -> media: " << sistema << " dev: " << sistemaDes << endl;
+    cout << "Longitud media de colas no vacias -> media: " << vacias << " dev: " << vaciasDes << endl;
+    cout << "Porcentaje medio de tiempo de ocio por servidor -> media: " << ocio << " dev: " << ocioDes << endl;
+    cout << "Longitud mÃ¡xima de la cola -> media: " << maxima << " dev: " << maximaDes << endl;
 }

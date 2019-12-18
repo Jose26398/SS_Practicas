@@ -16,12 +16,7 @@ using namespace std;
 float generallegada(float tlleg){
 	float u = random(); // o también rand() en lugar de random()
 	u = (u/(RAND_MAX+1.0)); //RAND_MAX es una constante del sistema
-	u = round(-tlleg*log(1-u));
-
-	if (u != 0)
-		return u;
-	else
-		return 1.0;
+	return (-tlleg*log(1-u));
 }
 
 
@@ -29,12 +24,7 @@ float generallegada(float tlleg){
 float generaservicio(float tserv){
 	float u = random(); // o también rand() en lugar de random()
 	u = (u/(RAND_MAX+1.0)); //RAND_MAX es una constante del sistema
-	u = round(-tserv*log(1-u));
-
-	if (u != 0)
-		return u;
-	else
-		return 1.0;
+	return (-tserv*log(1-u));
 }
 
 
@@ -53,22 +43,21 @@ int main(int argc, char *argv[])
 	sscanf(argv[2],"%f",&tlleg);
 	sscanf(argv[3],"%f",&tserv);
 
-
+	// for (int i = 0; i < 150; ++i){	
 
 	int infinito = 10e6; 	//tiempo en que ocurren cosas que sabemos no pueden ocurrir
 	int atendidos = 0; 	//al principio no hay nadie ya atendido
 	float inicio_ocio = 0; 	//marcará el momento en que el servidor empieza a estar ocioso
 	float acum_cola = 0;	//acumulador de número de clientes en cola por el tiempo en que están en
 	                	//dicha cola. El cliente que está siendo atendido NO está en cola
-	int reloj = 0; 	//marca el valor del tiempo simulado, inicialmente cero
+	float reloj = 0; 	//marca el valor del tiempo simulado, inicialmente cero
 	int servidor = libre;	//inicialmente el servidor no está atendiendo a nadie
 	int encola = 0;		//no hay nadie en cola todavía
-	int tiempo_llegada = reloj + generallegada(tlleg); 	//en ese tiempo llegará el primer cliente
-	int tiempo_salida = infinito;
-	int tultsuc = 0;
+	float tiempo_llegada = reloj + generallegada(tlleg); 	//en ese tiempo llegará el primer cliente
+	float tiempo_salida = infinito;
+	float tultsuc = 0;
 	float ocio = 0;
 
-	srand(time(NULL));
 
 	clock_t ini = clock();
 	while (atendidos < total_a_atender)
@@ -119,5 +108,6 @@ int main(int argc, char *argv[])
 	
 	double tiempo = (double)(fin-ini) / (double)CLOCKS_PER_SEC;
 	printf("Tiempo de ejecución: %g segundos\n", tiempo);
+// }
 
 }

@@ -99,7 +99,7 @@ void inicializacion()
 	nodo.suceso = suceso_finsimulacion;
 	nodo.tiempo = reloj+tparada;
 	nodo.retraso = nada;
-	insertar_lsuc(nodo); //tparada es un parámetro de entrada al programa
+	insertar_lsuc(nodo); //tparada es un parÃ¡metro de entrada al programa
 	//Inicializar el suceso monitor si que quiere trazar alguna medida del rendimiento a lo largo del tiempo, no solo al final
 	/* 
 	nodo.suceso = suceso_monitor;
@@ -182,8 +182,8 @@ void salida()
 
 void fin()
 {
-	parar = true; //para detener la simulación
-								//habrá que hacer las últimas actualizaciones de algunas variables
+	parar = true; //para detener la simulaciÃ³n
+								//habrÃ¡ que hacer las Ãºltimas actualizaciones de algunas variables
 	float retrasomedio = acum_retraso/atendidos;
 	printf("Tiempo medio de espera en cola = %.3f",retrasomedio);
 	float estanciamedia = retrasomedio + tserv;
@@ -209,7 +209,7 @@ void fin()
 	printf("\n");
 }
 
-//Si se desea monitorizar, por ejemplo el número medio de clientes en sistema a lo largo del tiempo se puede usar el suceso monitor siguiente, que habrá que inicializar
+//Si se desea monitorizar, por ejemplo el nÃºmero medio de clientes en sistema a lo largo del tiempo se puede usar el suceso monitor siguiente, que habrÃ¡ que inicializar
 void monitor()
 {
 	nodo.suceso = suceso_monitor;

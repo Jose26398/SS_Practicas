@@ -4,7 +4,7 @@ import sys
 from matplotlib import pyplot as plt
 
 # Ruta de tu ejecutable con respecto al script.
-EXECUTABLE_PATH = './incremento-fijo'
+EXECUTABLE_PATH = './incremento-variable'
 
 # Expresiones regulares de los valores a buscar.
 c_pattern = re.compile(r'Porcentaje de tiempo ocioso: ([0-9]+\.[0-9]+)')
