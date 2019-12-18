@@ -337,10 +337,60 @@ float calcularDesviacion(float suma, float media)
 Por último ya tenemos el bucle for, la división entre el número de simulaciones para hacer la media y desviaciones típicas, y posteriormente imprimimos
 los resultados.
 
+La prueba de este programa la vamos a realizar con varios números de servidores, sin embargo, el resto de parámetros que usaremos serán los mismos que
+los de la ejecución con $m=1$, ya que los resultados obtenidos eran muy similares a los valores teóricos. En este caso vamos a realizar la ejecución con
+2, 3, 4 y 5 servidores, adaptando el $tserv$ a cada uno de ellos para mantener el equilibrio. Este ha sido el resultado:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Número de\\ servidores\end{tabular}}                & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ espera en cola\end{tabular}}         & e          & e          & e          & e          \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ estancia en el sistema\end{tabular}} & e          & e          & e          & e          \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Numero medio\\ personas en cola\end{tabular}}       & e          & e          & e          & e          \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Número medio\\ personas en el sistema\end{tabular}} & e          & e          & e          & e          \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Longitud media\\ colas no vacías\end{tabular}}      & e          & e          & e          & e          \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Porcentaje medio\\ tiempo de ocio\end{tabular}}     & e          & e          & e          & e          \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Longitud\\ máxima cola\end{tabular}}                & e          & e          & e          & e          \\ \hline
+\end{tabular}
+\end{table}
+
+Podemos ver que a medida que aumentamos el número de servidores, los resultados van siendo mejores. Los tiempos medios de espera en cola se reducen, con
+menos clientes en cola y, a su vez, un número mayor de clientes en el sistema. Por otro lado, podemos ver que el porcentaje medio de tiempo de ocio del
+servidor, es prácticamente el mismo en todos los casos (teniendo en cuenta siempre un cierto error). Esto quiere decir que el sistema está bien equilibrado
+y a su vez, deducimos que estamos desperdiciando potencia del servidor; es decir, que pese a tener un número alto de servidores, no tenemos los suficientes
+clientes para que funcionen eficientemente o, simplemente, no los distribuímos de una forma eficaz.
+
+\newpage
 
 
 
-Reemplazar generadores exponenciales por determinísticos y/o uniformes.
+
+
+
+
+
+
+Para finalizar con este modelo de simulación, vamos a ver que sucede si reemplzamos los generadores actuales por generadores determinísticos y uniformes.
+El nuevo código implementado para el determinístico y para el uniforme, respectivamente, es:
+\begin{lstlisting}
+// Deterministico. Devuelve siempre el valor medio introducido
+float generador_deterministico(float media)
+{
+	return media;
+}
+
+// Uniforme. Devuelve un valor uniformemente generado con media
+// en el valor introducido
+float generador_uniforme(float media)
+{
+	float u;
+	u = (float) random();
+	u = u/(float)(RAND_MAX+1.0);
+	return(media*2*u);
+}
+\end{lstlisting}
 
 
 

@@ -46,7 +46,7 @@ bool parar;
 
 int n_simulaciones = 50;
 
-float retrasoMedio = 0.0,
+float esperaMedio = 0.0,
       estanciaMedia = 0.0,
       enColaMedio = 0.0,
       enSistemaMedia = 0.0,
@@ -54,7 +54,7 @@ float retrasoMedio = 0.0,
       porcentajeOcioMedio = 0.0,
       longMaxCola = 0.0;
 
-float retrasoMedioDes = 0.0,
+float esperaMedioDes = 0.0,
       estanciaMediaDes = 0.0,
       enColaMedioDes = 0.0,
       enSistemaMedioDes = 0.0,
@@ -202,9 +202,9 @@ void fin()
 {
 	parar = true; //para detener la simulación
 								//habrá que hacer las últimas actualizaciones de algunas variables
-	float retrasomedio = acum_retraso/atendidos;
-	// printf("Tiempo medio de espera en cola = %.3f",retrasomedio);
-	float estanciamedia = retrasomedio + tserv;
+	float esperamedio = acum_espera/atendidos;
+	// printf("Tiempo medio de espera en cola = %.3f",esperamedio);
+	float estanciamedia = esperamedio + tserv;
 	// printf("\nTiempo medio de estancia en el sistema = %.3f",estanciamedia);
 	acum_cola += (reloj - tultsuc_cola) * encola;
 	// printf("\nTiempo medio de espera en cola bis = %.3f",acum_cola/atendidos);
@@ -224,7 +224,7 @@ void fin()
 	// printf("\n");
 
 	// Variables nuevas para medias y desviaciones
-	retrasoMedio += retrasomedio;
+	esperaMedio += esperamedio;
     estanciaMedia += estanciamedia;
     enColaMedio += encolamedio;
     enSistemaMedia += ensistemamedio;
@@ -232,7 +232,7 @@ void fin()
     porcentajeOcioMedio += porcentajemedioocio;
     longMaxCola += maximacola;
 
-    retrasoMedioDes += pow(retrasomedio, 2);
+    esperaMedioDes += pow(esperamedio, 2);
     estanciaMediaDes += pow(estanciamedia, 2);
     enColaMedioDes += pow(encolamedio, 2);
     enSistemaMedioDes += pow(ensistemamedio, 2);
@@ -298,7 +298,7 @@ int main(int argc, char *argv[])
         }
     }
 
-    float retraso = retrasoMedio / n_simulaciones,
+    float espera = esperaMedio / n_simulaciones,
           estancia = estanciaMedia / n_simulaciones,
           cola = enColaMedio / n_simulaciones,
           sistema = enSistemaMedia / n_simulaciones,
@@ -306,7 +306,7 @@ int main(int argc, char *argv[])
           ocio = porcentajeOcioMedio / n_simulaciones,
           maxima = longMaxCola / n_simulaciones;
     
-    float retrasoDes = calcularDesviacion(retrasoMedioDes, retraso),
+    float esperaDes = calcularDesviacion(esperaMedioDes, espera),
           estanciaDes = calcularDesviacion(estanciaMediaDes, estancia),
           colaDes = calcularDesviacion(enColaMedioDes, cola),
           sistemaDes = calcularDesviacion(enSistemaMedioDes, sistema),
@@ -314,12 +314,11 @@ int main(int argc, char *argv[])
           ocioDes = calcularDesviacion(porcentajeOcioMedioDes, ocio),
           maximaDes = calcularDesviacion(longMaxColaDes, maxima);
     
-    cout << "\nVALORES MEDIOS Y DESVIACIONES" << endl;
-    cout << "Tiempo medio de espera en cola -> media: " << retraso << " dev: " << retrasoDes << endl;
-    cout << "Tiempo medio de estancia en el sistema -> media: " << estancia << " dev: " << estanciaDes << endl;
-    cout << "Numero medio de personas en cola -> media: " << cola << " dev: " << colaDes << endl;
-    cout << "Numero medio de personas en el sistema -> media: " << sistema << " dev: " << sistemaDes << endl;
-    cout << "Longitud media de colas no vacias -> media: " << vacias << " dev: " << vaciasDes << endl;
-    cout << "Porcentaje medio de tiempo de ocio por servidor -> media: " << ocio << " dev: " << ocioDes << endl;
-    cout << "Longitud máxima de la cola -> media: " << maxima << " dev: " << maximaDes << endl;
+    cout << "Tiempo medio de espera en cola = media: " << espera << " dev: " << esperaDes << endl;
+    cout << "Tiempo medio de estancia en el sistema = media: " << estancia << " dev: " << estanciaDes << endl;
+    cout << "Numero medio de personas en cola = media: " << cola << " dev: " << colaDes << endl;
+    cout << "Numero medio de personas en el sistema = media: " << sistema << " dev: " << sistemaDes << endl;
+    cout << "Longitud media de colas no vacias = media: " << vacias << " dev: " << vaciasDes << endl;
+    cout << "Porcentaje medio de tiempo de ocio por servidor = media: " << ocio << " dev: " << ocioDes << endl;
+    cout << "Longitud máxima de la cola = media: " << maxima << " dev: " << maximaDes << endl;
 }
