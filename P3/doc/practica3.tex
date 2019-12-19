@@ -344,7 +344,8 @@ los de la ejecución con $m=1$, ya que los resultados obtenidos eran muy similar
 \begin{table}[H]
 \centering
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{c|c|c|c|c}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
 \textbf{\begin{tabular}[c]{@{}c@{}}Número de\\ servidores\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}2\\ tserv: 12\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}3\\ tserv: 18\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}4\\ tserv: 24\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}5\\ tserv: 30\end{tabular}} \\ \hline
 \textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ espera en cola\end{tabular}} & \begin{tabular}[c]{@{}c@{}}med: 9.41335\\ des: 0.730856\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 7.80226\\ des: 1.19625\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 6.5818\\ des: 1.59282\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 5.78543\\ des: 0.709112\end{tabular} \\ \hline
 \textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ estancia en el sistema\end{tabular}} & \begin{tabular}[c]{@{}c@{}}med: 21.4133\\ des: 0.730836\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 25.8023\\ des: 1.19633\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 30.5818\\ des: 1.59289\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 35.7854\\ des: 0.70908\end{tabular} \\ \hline
@@ -352,7 +353,7 @@ los de la ejecución con $m=1$, ya que los resultados obtenidos eran muy similar
 \textbf{\begin{tabular}[c]{@{}c@{}}Número medio\\ personas en el sistema\end{tabular}} & \begin{tabular}[c]{@{}c@{}}med: 2.37887\\ des: 0.0963648\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 2.87863\\ des: 0.103085\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 3.40728\\ des: 0.0925651\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 3.98036\\ des: 0.118443\end{tabular} \\ \hline
 \textbf{\begin{tabular}[c]{@{}c@{}}Longitud media\\ colas no vacías\end{tabular}} & \begin{tabular}[c]{@{}c@{}}med: 2.97911\\ des: 0.172741\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 2.99961\\ des: 0.209258\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 2.98825\\ des: 0.184951\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 2.97684\\ des: 0.214132\end{tabular} \\ \hline
 \textbf{\begin{tabular}[c]{@{}c@{}}Porcentaje medio\\ tiempo de ocio\end{tabular}} & \begin{tabular}[c]{@{}c@{}}med: 33.5856\\ des: 0.744918\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 33.4867\\ des: 0.718379\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 33.4917\\ des: 0.822586\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 33.3909\\ des: 1.01696\end{tabular} \\ \hline
-\textbf{\begin{tabular}[c]{@{}c@{}}Longitud\\ máxima cola\end{tabular}} & \begin{tabular}[c]{@{}c@{}}med: 18.4\\ des: 3.43452\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 17.88\\ des: 3.86317\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 17.16\\ des: 3.32191\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 16.5\\ des: 2.74234\end{tabular}
+\textbf{\begin{tabular}[c]{@{}c@{}}Longitud\\ máxima cola\end{tabular}} & \begin{tabular}[c]{@{}c@{}}med: 18.4\\ des: 3.43452\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 17.88\\ des: 3.86317\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 17.16\\ des: 3.32191\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 16.5\\ des: 2.74234\end{tabular} \\ \hline
 \end{tabular}%
 }
 \end{table}
@@ -415,12 +416,90 @@ alejados de la realidad.
 
 \chapter{Mi tercer modelo de simulación Discreto}
 
-\section{Remolcador de un puerto}
+En este modelo de simulación vamos a estudiar el funcionamiento de un puerto y posteriormente, realizar mejoras en el sistema para poder hacerlo más eficiente.
+El puerto consta de tres puntos de atraque, por lo que podrá cargar tres petroleros simultáneamente. También tendremos tres tipos de petroleros según el tiempo
+de carga que necesiten, a lo que hay que añadirle las horas que tardan los petroleros en llegar al puerto.
+
+Tanto para atracar como para salir del puerto, cada petrolero necesitará los servicios de un remolcador. Tendremos sólo un remolcador en el puerto, el cual tarda
+$1 \pm 0.25$ horas en realizar la actividad más 0.25 horas si tiene que ir desde la bocana del puerto hasta los puntos de atraque. El remolcador tratará a los
+barcos de forma FIFO, tanto para los de atracan como para los que se van.
+
+En la zona donde está situado el puerto se producen tormentas frecuentes, por lo que el remolcador quedará inactivo durante estas (excepto si ya está realizando
+una actividad). Si la actividad que está viajando hasta un punto de atraque, también se cancelará la actividad.
+
+
+\section{Configuración inicial del remolcador}
+Haciendo uso de la implementación ya proporcionada, vamos a realizar una serie de ejecuciones con distintos números de simulaciones, para asi determinar cual
+es un valor adecuado de ellas.
+
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[H]
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Número de\\ simulaciones\end{tabular}}                          & \textbf{10}                                                              & \textbf{50}                                                              & \textbf{100}                                                             & \textbf{150}                                                             & \textbf{500}                                                             \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Media barcos\\ cola de llegadas\end{tabular}}                   & \begin{tabular}[c]{@{}c@{}}media: 1.333533\\ des: 0.523857\end{tabular}  & \begin{tabular}[c]{@{}c@{}}media: 1.135396\\ des: 0.411275\end{tabular}  & \begin{tabular}[c]{@{}c@{}}media: 1.166943\\ des: 0.468569\end{tabular}  & \begin{tabular}[c]{@{}c@{}}media: 1.221241\\ des: 0.439310\end{tabular}  & \begin{tabular}[c]{@{}c@{}}media: 1.201712\\ des: 0.461860\end{tabular}  \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Media barcos\\ cola de salidas\end{tabular}}                    & \begin{tabular}[c]{@{}c@{}}media: 0.029232\\ des: 0.004155\end{tabular}  & \begin{tabular}[c]{@{}c@{}}media: 0.028225\\ des: 0.002669\end{tabular}  & \begin{tabular}[c]{@{}c@{}}media: 0.028771\\ des: 0.003588\end{tabular}  & \begin{tabular}[c]{@{}c@{}}media: 0.028802\\ des: 0.003547\end{tabular}  & \begin{tabular}[c]{@{}c@{}}media: 0.028596\\ des: 0.003577\end{tabular}  \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ puerto tipo 0\end{tabular}}                      & \begin{tabular}[c]{@{}c@{}}media: 34.803562\\ des: 5.445097\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 33.173023\\ des: 4.127820\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 33.263069\\ des: 4.946590\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 33.819340\\ des: 4.702908\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 33.678764\\ des: 4.920179\end{tabular} \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ puerto tipo 1\end{tabular}}                      & \begin{tabular}[c]{@{}c@{}}media: 41.308720\\ des: 5.769780\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 38.570274\\ des: 4.494416\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 39.113869\\ des: 4.792210\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 39.822876\\ des: 4.737566\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 39.477352\\ des: 5.019176\end{tabular} \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ puerto tipo 2\end{tabular}}                      & \begin{tabular}[c]{@{}c@{}}media: 52.762413\\ des: 5.920279\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 50.656128\\ des: 4.696106\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 51.064156\\ des: 5.299624\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 51.613480\\ des: 4.874365\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 51.393242\\ des: 5.082584\end{tabular} \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}\% tiempo\\ remolcador\\ desocupado\end{tabular}}               & \begin{tabular}[c]{@{}c@{}}media: 80.564148\\ des: 0.210406\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 80.600021\\ des: 0.183851\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 80.609428\\ des: 0.160885\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 80.639183\\ des: 0.167643\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 80.619522\\ des: 0.205144\end{tabular} \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}\% tiempo\\ remolcador\\ viajando vacío\end{tabular}}           & \begin{tabular}[c]{@{}c@{}}media: 1.170690\\ des: 0.236674\end{tabular}  & \begin{tabular}[c]{@{}c@{}}media: 1.296613\\ des: 0.218616\end{tabular}  & \begin{tabular}[c]{@{}c@{}}media: 1.309277\\ des: 0.237519\end{tabular}  & \begin{tabular}[c]{@{}c@{}}media: 1.260584\\ des: 0.239027\end{tabular}  & \begin{tabular}[c]{@{}c@{}}media: 1.272699\\ des: 0.227300\end{tabular}  \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}\% tiempo\\ remolcador\\ remolcando\end{tabular}}               & \begin{tabular}[c]{@{}c@{}}media: 18.265163\\ des: 0.181919\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 18.103365\\ des: 0.220881\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 18.081308\\ des: 0.246783\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 18.100248\\ des: 0.256010\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 18.107714\\ des: 0.241916\end{tabular} \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}\% tiempo puntos\\ atraque libres\end{tabular}}                 & \begin{tabular}[c]{@{}c@{}}media: 12.410981\\ des: 1.272044\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 13.255801\\ des: 1.253805\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 13.299381\\ des: 1.415099\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 13.025707\\ des: 1.442802\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 13.064457\\ des: 1.378616\end{tabular} \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}\% tiempo puntos\\ atraque ocupados\\ (sin carga)\end{tabular}} & \begin{tabular}[c]{@{}c@{}}media: 0.974415\\ des: 0.138513\end{tabular}  & \begin{tabular}[c]{@{}c@{}}media: 0.940827\\ des: 0.088957\end{tabular}  & \begin{tabular}[c]{@{}c@{}}media: 0.959018\\ des: 0.119604\end{tabular}  & \begin{tabular}[c]{@{}c@{}}media: 0.960067\\ des: 0.118232\end{tabular}  & \begin{tabular}[c]{@{}c@{}}media: 0.953195\\ des: 0.119229\end{tabular}  \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}\% tiempo puntos\\ atraque ocupados\\ (cargando)\end{tabular}}  & \begin{tabular}[c]{@{}c@{}}media: 86.614601\\ des: 1.206176\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 85.803375\\ des: 1.242067\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 85.741608\\ des: 1.397373\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 86.014229\\ des: 1.409460\end{tabular} & \begin{tabular}[c]{@{}c@{}}media: 85.982361\\ des: 1.347268\end{tabular} \\ \hline
+\end{tabular}%
+}
+\end{table}
+
+Como podemos ver, los resultados han sido muy parecidos para todas las pruebas, incluso para las que tienen un número de simulaciones muy bajo todos los parámetros
+son muy similares. El único parámetro que varía más es el número medio de barcos en cola de llegadas, que con bajas simulaciones puede tomar variaciones de hasta
+$\pm0.2$ o $\pm0.25$ barcos de media. En los valores más altos, este valor toma aproximadamente una media de 1.20, por lo que se tomarán los valores cercanos a
+este como los correctos.
+
+Como lo que tarda la simulación no es un tiempo excesivo, vamos a realizar futuras ejecuciones con un número de simulaciones de 150, pero en caso de tener un
+computador menos potente o realizar modificaciones que relenticen mucho el tiempo, podremos bajarlo, ya que no será excesivamente impreciso.
 
 
 \section{Mejoras propuestas para el remolcador}
 
+La primera mejora propuesta es la de aumentar la cantidad de puntos de atraque a 4 o 5. En mi caso, lo vamos a realizar con 4, 5 y 50, una cantidad exagerada de
+puntos de atraque para comprobar si existe cuello de botella y en que punto estaría situado.
 
+Para cambiar el número de puntos de atraque, simplemente tendremos que situarnos en el archivo $puerto.h$ y cambiar el parámetro $num\_atraques$ a 4, 5 o 50. Los
+resultados son los siguientes:
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[H]
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Puntos de atraque}                                                                         & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{50} \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Media barcos\\ cola de llegadas\end{tabular}}                   & 1.221241   & 0.087470   & 0.047531   & 0.045330    \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Media barcos\\ cola de salidas\end{tabular}}                    & 0.028802   & 0.028978   & 0.029302   & 0.029909    \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ puerto tipo 0\end{tabular}}                      & 33.819340  & 21.290621  & 20.853863  & 20.841713   \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ puerto tipo 1\end{tabular}}                      & 39.822876  & 27.292864  & 26.873707  & 26.824234   \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ puerto tipo 2\end{tabular}}                      & 51.613480  & 39.280964  & 38.843136  & 38.826294   \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}\% tiempo\\ remolcador\\ desocupado\end{tabular}}               & 80.639183  & 78.232468  & 77.879196  & 77.831390   \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}\% tiempo\\ remolcador\\ viajando vacío\end{tabular}}           & 1.260584   & 3.640723   & 3.984176   & 4.021134    \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}\% tiempo\\ remolcador\\ remolcando\end{tabular}}               & 18.100248  & 18.126814  & 18.136642  & 18.147490   \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}\% tiempo puntos\\ atraque libres\end{tabular}}                 & 13.025707  & 34.647606  & 47.665897  & 94.769493   \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}\% tiempo puntos\\ atraque ocupados\\ (sin carga)\end{tabular}} & 0.960067   & 0.724439   & 0.586037   & 0.059817    \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}\% tiempo puntos\\ atraque ocupados\\ (cargando)\end{tabular}}  & 86.014229  & 64.627922  & 51.748062  & 5.170702    \\ \hline
+\end{tabular}%
+}
+\end{table}
+
+Como podemos observar, los resultados van en consonancia a la cantidad de puntos de atraque que hay. El número medio de barcos que hay en la cola de llegadas se
+aproxima cada vez más a 0, o el porcentaje de tiempo de puntos de atraque libres es casi del 100\%. Esto se debe a que los barcos apenas tendrán que esperar a
+ser colocados, porque siempre va a haber un lugar donde ponerlos. También se aumentará el tiempo en que están estos puntos libres ya que no siempre va a existir
+una cantidad de barcos muy grande en espera como para tenerlos llenos constantemente.
+
+Si nos fijamos en la columna del 50, nos podemos dar cuenta de que la media de barcos en cola no mejora mucho más, mientras que varios de los parámetros obtenidos
+adquieren valores exagerados (lo lógico por la cantidad excesiva de puntos). Lo que nos dice esto es que no merece la pena aumentar más de 4 o 5 el número de puntos
+de atraque, ya que el cuello de botella, una vez llegado a este punto, estará en los reolcadores, las tormentas o simplemente en la aleatoriedad del sistema.
 
 
 \chapter{Análisis de Salidas y Experimentación}

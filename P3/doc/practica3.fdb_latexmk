@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1576628923 "practica3.tex" "practica3.pdf" "practica3" 1576628924
+["pdflatex"] 1576772943 "practica3.tex" "practica3.pdf" "practica3" 1576772944
   "/etc/texmf/web2c/texmf.cnf" 1570888755 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/jose/.texlive2018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1095.600pk" 1570890391 28952 b5cefd4a1f174bf8211cf490847c39d0 ""
   "/home/jose/.texlive2018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk" 1570890389 40112 f46050bd2521fe5f7c322b547c2d1a43 ""
@@ -20,6 +20,7 @@
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/eccc1440.tfm" 1480098696 3072 f2bcba5ec52607af3501d45108193ff5 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/eccc2488.tfm" 1480098696 3072 0a9bb7969372717e6b61ec14d5eee9b0 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm0600.tfm" 1480098696 3584 291a5713401683441e0a8c8f4417b17b ""
+  "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm0800.tfm" 1480098696 3584 49064b465390a8e316a3c8417a050403 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm0900.tfm" 1480098696 3584 d3d8ac8b25ca19c0a40b86a5db1e8ccc ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm1095.tfm" 1480098696 3584 929cdff2b7a8c11bd4d49fd68cb0ae70 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm1440.tfm" 1480098696 3584 3169d30142b88a27d4ab0e3468e963a2 ""
@@ -113,13 +114,13 @@
   "img/incremento-variable-ocioso.png" 1576577570 119050 66c5cdd943e58bc45d4b040b6d99891d ""
   "img/tiempos.png" 1576598285 26984 c676df6fa8bb6b313e84a181276beee6 ""
   "img/ugr.png" 1570891768 72350 8a143f594b0737cd595d897cfd30c2d7 ""
-  "practica3.aux" 1576628923 3495 053b5c6800009b3af1ab305a67036d28 ""
-  "practica3.out" 1576628923 894 bc9663edfd8844e9cdf6514e091dbf11 ""
-  "practica3.tex" 1576628922 16623 5739aaa6af74eae2f90c1aa6b89c51e9 ""
-  "practica3.toc" 1576628923 1195 10c25b8091e4627cdb8c0cafc90f8106 ""
+  "practica3.aux" 1576772944 3517 797f2cb8a81de917c0d7af9f7602f949 ""
+  "practica3.out" 1576772944 910 4b55a25398f368e1f751494776e42c78 ""
+  "practica3.tex" 1576772942 35209 e00d7cba9a1e0fd9b139bf707455927c ""
+  "practica3.toc" 1576772944 1217 32c4c37111bb4cdef8f85b2c37eb68dc ""
   (generated)
-  "practica3.toc"
-  "practica3.aux"
   "practica3.pdf"
-  "practica3.log"
+  "practica3.toc"
   "practica3.out"
+  "practica3.aux"
+  "practica3.log"

@@ -63,7 +63,7 @@ int cont_simu;
 
 /* Parametros de entrada */
 int remolcadores = 1;
-int num_atraques = 3;
+int num_atraques = 50;
 float tllegmin = 4.0;
 float tllegmax = 18.0;
 float tviajevacio = 0.25;

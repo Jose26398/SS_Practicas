@@ -180,6 +180,7 @@ INPUT ./img/cola-m1.png
 INPUT img/cola2-m1.png
 INPUT ./img/cola2-m1.png
 INPUT ./img/cola2-m1.png
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm0800.tfm
 INPUT practica3.aux
 INPUT ./practica3.out
 INPUT ./practica3.out
