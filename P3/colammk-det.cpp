@@ -73,7 +73,7 @@ float generaservicio(float media)
 /* Procedimiento inicializacion */
 void inicializacion()
 {
-	srandom(time(NULL));
+	srand(time(NULL));
 	reloj = 0.0;
 	libres = m;
 	encola = 0;

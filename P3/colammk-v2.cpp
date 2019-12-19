@@ -77,7 +77,7 @@ void insertar_lsuc(suc n)
 float generador_exponencial(float media)
 {
 	float u;
-	u = (float) random();
+	u = (float) rand();
 	u = u/(float)(RAND_MAX+1.0);
 	return(-media*log(1-u));
 }
@@ -202,7 +202,7 @@ void fin()
 {
 	parar = true; //para detener la simulación
 								//habrá que hacer las últimas actualizaciones de algunas variables
-	float esperamedio = acum_espera/atendidos;
+	float esperamedio = acum_retraso/atendidos;
 	// printf("Tiempo medio de espera en cola = %.3f",esperamedio);
 	float estanciamedia = esperamedio + tserv;
 	// printf("\nTiempo medio de estancia en el sistema = %.3f",estanciamedia);
@@ -286,7 +286,7 @@ int main(int argc, char *argv[])
 	sscanf(argv[3],"%f",&tlleg);
 	sscanf(argv[4],"%f",&tserv);
 	
-	srandom(time(NULL));
+	srand(time(NULL));
 
     for (int i = 0; i < n_simulaciones; i++)
     {
@@ -314,11 +314,11 @@ int main(int argc, char *argv[])
           ocioDes = calcularDesviacion(porcentajeOcioMedioDes, ocio),
           maximaDes = calcularDesviacion(longMaxColaDes, maxima);
     
-    cout << "Tiempo medio de espera en cola = media: " << espera << " dev: " << esperaDes << endl;
-    cout << "Tiempo medio de estancia en el sistema = media: " << estancia << " dev: " << estanciaDes << endl;
-    cout << "Numero medio de personas en cola = media: " << cola << " dev: " << colaDes << endl;
-    cout << "Numero medio de personas en el sistema = media: " << sistema << " dev: " << sistemaDes << endl;
-    cout << "Longitud media de colas no vacias = media: " << vacias << " dev: " << vaciasDes << endl;
-    cout << "Porcentaje medio de tiempo de ocio por servidor = media: " << ocio << " dev: " << ocioDes << endl;
-    cout << "Longitud máxima de la cola = media: " << maxima << " dev: " << maximaDes << endl;
+    cout << "Tiempo medio de espera en cola = media: " << espera << " desviacion: " << esperaDes << endl;
+    cout << "Tiempo medio de estancia en el sistema = media: " << estancia << " desviacion: " << estanciaDes << endl;
+    cout << "Numero medio de personas en cola = media: " << cola << " desviacion: " << colaDes << endl;
+    cout << "Numero medio de personas en el sistema = media: " << sistema << " desviacion: " << sistemaDes << endl;
+    cout << "Longitud media de colas no vacias = media: " << vacias << " desviacion: " << vaciasDes << endl;
+    cout << "Porcentaje medio de tiempo de ocio por servidor = media: " << ocio << " desviacion: " << ocioDes << endl;
+    cout << "Longitud máxima de la cola = media: " << maxima << " desviacion: " << maximaDes << endl;
 }

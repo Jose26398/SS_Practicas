@@ -465,7 +465,7 @@ float genera_tiempocarga(int tipo)
 float generador_uniforme(float min, float max)
 {
   float u;
-  u = (float) random();
+  u = (float) rand();
   u = (float) (u/(RAND_MAX+1.0));
   return(min+(max-min)*u);
 }
@@ -473,7 +473,7 @@ float generador_uniforme(float min, float max)
 float generador_exponencial(float media)
 {
   float u;
-  u = (float) random();
+  u = (float) rand();
   u = (float) (u/(RAND_MAX+1.0));
   return(-media*log(1-u));
 }
@@ -481,7 +481,7 @@ float generador_exponencial(float media)
 int generador_discreto()
 {
   float u;
-  u = (float) random();
+  u = (float) rand();
   u = (float) (u/(RAND_MAX+1.0));
   if (u < frec1) return(0);
   else if (u < (frec1+frec2)) return(1);
@@ -506,12 +506,12 @@ int main(int argc, char *argv[])
   for(i=0; i<simulaciones; i++)
   	informe[i] = (float *) malloc (11*sizeof(float));
 
-  srandom(time(NULL));
-  //srandom(123456);
+  srand(time(NULL));
+  //srand(123456);
 
   for(cont_simu=0; cont_simu<simulaciones; cont_simu++)
   	{
-	printf("\nSimulacion %d ...",cont_simu);
+	// printf("\nSimulacion %d ...",cont_simu);
   	inicializacion();
   	while(parar==false)
 		{

@@ -343,36 +343,30 @@ los de la ejecución con $m=1$, ya que los resultados obtenidos eran muy similar
 
 \begin{table}[H]
 \centering
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-\textbf{\begin{tabular}[c]{@{}c@{}}Número de\\ servidores\end{tabular}}                & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\ \hline
-\textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ espera en cola\end{tabular}}         & e          & e          & e          & e          \\ \hline
-\textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ estancia en el sistema\end{tabular}} & e          & e          & e          & e          \\ \hline
-\textbf{\begin{tabular}[c]{@{}c@{}}Numero medio\\ personas en cola\end{tabular}}       & e          & e          & e          & e          \\ \hline
-\textbf{\begin{tabular}[c]{@{}c@{}}Número medio\\ personas en el sistema\end{tabular}} & e          & e          & e          & e          \\ \hline
-\textbf{\begin{tabular}[c]{@{}c@{}}Longitud media\\ colas no vacías\end{tabular}}      & e          & e          & e          & e          \\ \hline
-\textbf{\begin{tabular}[c]{@{}c@{}}Porcentaje medio\\ tiempo de ocio\end{tabular}}     & e          & e          & e          & e          \\ \hline
-\textbf{\begin{tabular}[c]{@{}c@{}}Longitud\\ máxima cola\end{tabular}}                & e          & e          & e          & e          \\ \hline
-\end{tabular}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{c|c|c|c|c}
+\textbf{\begin{tabular}[c]{@{}c@{}}Número de\\ servidores\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}2\\ tserv: 12\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}3\\ tserv: 18\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}4\\ tserv: 24\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}5\\ tserv: 30\end{tabular}} \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ espera en cola\end{tabular}} & \begin{tabular}[c]{@{}c@{}}med: 9.41335\\ des: 0.730856\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 7.80226\\ des: 1.19625\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 6.5818\\ des: 1.59282\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 5.78543\\ des: 0.709112\end{tabular} \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ estancia en el sistema\end{tabular}} & \begin{tabular}[c]{@{}c@{}}med: 21.4133\\ des: 0.730836\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 25.8023\\ des: 1.19633\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 30.5818\\ des: 1.59289\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 35.7854\\ des: 0.70908\end{tabular} \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Numero medio\\ personas en cola\end{tabular}} & \begin{tabular}[c]{@{}c@{}}med: 1.05059\\ des: 0.0854933\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 0.883231\\ des: 0.0896291\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 0.746949\\ des: 0.0693109\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 0.649897\\ des: 0.0780725\end{tabular} \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Número medio\\ personas en el sistema\end{tabular}} & \begin{tabular}[c]{@{}c@{}}med: 2.37887\\ des: 0.0963648\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 2.87863\\ des: 0.103085\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 3.40728\\ des: 0.0925651\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 3.98036\\ des: 0.118443\end{tabular} \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Longitud media\\ colas no vacías\end{tabular}} & \begin{tabular}[c]{@{}c@{}}med: 2.97911\\ des: 0.172741\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 2.99961\\ des: 0.209258\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 2.98825\\ des: 0.184951\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 2.97684\\ des: 0.214132\end{tabular} \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Porcentaje medio\\ tiempo de ocio\end{tabular}} & \begin{tabular}[c]{@{}c@{}}med: 33.5856\\ des: 0.744918\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 33.4867\\ des: 0.718379\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 33.4917\\ des: 0.822586\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 33.3909\\ des: 1.01696\end{tabular} \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Longitud\\ máxima cola\end{tabular}} & \begin{tabular}[c]{@{}c@{}}med: 18.4\\ des: 3.43452\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 17.88\\ des: 3.86317\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 17.16\\ des: 3.32191\end{tabular} & \begin{tabular}[c]{@{}c@{}}med: 16.5\\ des: 2.74234\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 Podemos ver que a medida que aumentamos el número de servidores, los resultados van siendo mejores. Los tiempos medios de espera en cola se reducen, con
-menos clientes en cola y, a su vez, un número mayor de clientes en el sistema. Por otro lado, podemos ver que el porcentaje medio de tiempo de ocio del
-servidor, es prácticamente el mismo en todos los casos (teniendo en cuenta siempre un cierto error). Esto quiere decir que el sistema está bien equilibrado
-y a su vez, deducimos que estamos desperdiciando potencia del servidor; es decir, que pese a tener un número alto de servidores, no tenemos los suficientes
-clientes para que funcionen eficientemente o, simplemente, no los distribuímos de una forma eficaz.
+menos clientes en cola y, a su vez, un número mayor de clientes en el sistema.
+
+Por otro lado, podemos ver que el porcentaje medio de tiempo de ocio del servidor es prácticamente el mismo en todos los casos (teniendo en cuenta siempre
+un cierto error) y el tiempo medio de estancia en el sistema se va incrementando. Esto quiere decir que el sistema está bien equilibrado y, a su vez, deducimos
+que estamos desperdiciando potencia del servidor; es decir, que pese a tener un número alto de servidores, no tenemos los suficientes clientes para que funcionen
+eficientemente o, simplemente, no los distribuímos de una forma eficaz.
 
 \newpage
-
-
-
-
-
-
-
-
-
-Para finalizar con este modelo de simulación, vamos a ver que sucede si reemplzamos los generadores actuales por generadores determinísticos y uniformes.
+Para finalizar con este modelo de simulación, vamos a estudiar que sucede si reemplzamos los generadores actuales por generadores determinísticos y uniformes.
 El nuevo código implementado para el determinístico y para el uniforme, respectivamente, es:
 \begin{lstlisting}
 // Deterministico. Devuelve siempre el valor medio introducido
@@ -392,16 +386,29 @@ float generador_uniforme(float media)
 }
 \end{lstlisting}
 
+Las pruebas también se van a hacer con una cantidad $m=1$ de servidores y con el resto de parámetros igual que en las pruebas anteriors. El resultado es el
+siguiente:
+\begin{table}[H]
+\centering
+\begin{tabular}{c|c|c}
+\textbf{\begin{tabular}[c]{@{}c@{}}Tipo de\\ generador\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Generador\\ determinístico\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Generador\\ uniforme\end{tabular}} \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ espera en cola\end{tabular}} & 0 & 3.498 \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ estancia en el sistema\end{tabular}} & 6 & 9.498 \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Numero medio\\ personas en cola\end{tabular}} & 0 & 0.387 \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Número medio\\ personas en el sistema\end{tabular}} & 0.667 & 1.051 \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Longitud media\\ colas no vacías\end{tabular}} & 0 & 1.519 \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Porcentaje medio\\ tiempo de ocio\end{tabular}} & 33.339 & 33.534 \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Longitud\\ máxima cola\end{tabular}} & 0 & 6
+\end{tabular}
+\end{table}
 
+Como podemos ver, el generador determinístico ha obtenido los mejores resultados posibles, con un tiempo medio de espera en la cola de 0 minutos y un tiempo
+de servicio medio de 6 minutos. Esto se debe a que el generador de tiempos de servicio no produce las variaciones que se pueden dar en la vida real, y por lo
+tanto, como el tiempo de llegadas es 9 minutos y el de servicio 6, nunca se pisrán el uno con el otro.
 
-
-
-
-
-
-
-
-
+En cuanto al generador uniforme, vemos que nos da resultados diferentes a los del generador determinístico y que, en un principio, parecen bastante buenos. No
+obstante, si los comparamos con los valores teóricos calculados anteriormente, vemos que son muy diferentes, lo que quiere decir que son unos valores bastante
+alejados de la realidad.
 
 
 

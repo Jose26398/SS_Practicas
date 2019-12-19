@@ -59,7 +59,7 @@ void insertar_lsuc(suc n)
 float generador_uniforme(float media)
 {
 	float u;
-	u = (float) random();
+	u = (float) rand();
 	u = u/(float)(RAND_MAX+1.0);
 	return(media*2*u);
 }
@@ -76,7 +76,7 @@ float generaservicio(float media)
 /* Procedimiento inicializacion */
 void inicializacion()
 {
-	srandom(time(NULL));
+	srand(time(NULL));
 	reloj = 0.0;
 	libres = m;
 	encola = 0;
