@@ -84,6 +84,8 @@ float tiempo_carga2max = 27.0;
 float tiempo_carga3max = 40.0;
 float tparada = 8760.0;
 
+float toneladas;
+
 /* Funciones y procedimientos */
 void inicializacion();
 void temporizacion();

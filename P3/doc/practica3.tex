@@ -431,9 +431,6 @@ una actividad). Si la actividad que está viajando hasta un punto de atraque, ta
 \section{Configuración inicial del remolcador}
 Haciendo uso de la implementación ya proporcionada, vamos a realizar una serie de ejecuciones con distintos números de simulaciones, para asi determinar cual
 es un valor adecuado de ellas.
-
-% Please add the following required packages to your document preamble:
-% \usepackage{graphicx}
 \begin{table}[H]
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{|c|c|c|c|c|c|}
@@ -465,13 +462,13 @@ computador menos potente o realizar modificaciones que relenticen mucho el tiemp
 
 \section{Mejoras propuestas para el remolcador}
 
+\subsection{Aumento de puntos de atraque}
+
 La primera mejora propuesta es la de aumentar la cantidad de puntos de atraque a 4 o 5. En mi caso, lo vamos a realizar con 4, 5 y 50, una cantidad exagerada de
 puntos de atraque para comprobar si existe cuello de botella y en que punto estaría situado.
 
 Para cambiar el número de puntos de atraque, simplemente tendremos que situarnos en el archivo $puerto.h$ y cambiar el parámetro $num\_atraques$ a 4, 5 o 50. Los
 resultados son los siguientes:
-% Please add the following required packages to your document preamble:
-% \usepackage{graphicx}
 \begin{table}[H]
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{|c|c|c|c|c|}
@@ -502,9 +499,107 @@ adquieren valores exagerados (lo lógico por la cantidad excesiva de puntos). Lo
 de atraque, ya que el cuello de botella, una vez llegado a este punto, estará en los reolcadores, las tormentas o simplemente en la aleatoriedad del sistema.
 
 
+\subsection{Cambio de remolcador}
+
+En esta ocasión, vamos a reemplazar el remolcador por otro con las mismas características pero que no tenga que pararse por las tormentas. Para que en nuestro código
+podamos hacer esta mejora, simplemente tendremos que comentar las 3 líneas que se muestran a continuación, situadas en la función de inicialización:
+\begin{lstlisting}
+void inicializacion(){
+	....
+	insertar_lsuc(nodo);
+	nodo.suceso = SUCESO_LLEGADA_BARCO;
+	nodo.tiempo = reloj+genera_barco(tllegmin,tllegmax);
+	insertar_lsuc(nodo);
+	// nodo.suceso = SUCESO_COMIENZO_TORMENTA;
+	// nodo.tiempo = reloj+genera_tormenta(tentre_tormentas);
+	// insertar_lsuc(nodo);
+
+	parar=false;
+}
+\end{lstlisting}
+
+Directamente quitamos la parte de código que introduce en la lista de sucesos las tormentas. Como éstas sólo afectarán a los remolcadores, no meterlo no afectaría a nada
+más que a lo que nos interesa, que es que estos remolcadores no sean afectados por ellas. En caso de que la carga, atracar o alguna otra cosa sea afectada por las tormentas,
+sí tendríamos que modificar el resto del código.
+
+Los resultados obtenidos con esta modificación son los siguientes:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{}                                                                         				   			  & \textbf{Media} & \textbf{Desviación}\\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Media barcos\\ cola de llegadas\end{tabular}}                   			  & 1.042378   	& 0.390245  \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Media barcos\\ cola de salidas\end{tabular}}                    			  & 0.011017   	& 0.001231  \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ puerto tipo 0\end{tabular}}                      			  & 31.653658  	& 4.235801 \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ puerto tipo 1\end{tabular}}                      			  & 37.545002  	& 4.164622 \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ puerto tipo 2\end{tabular}}                      			  & 49.479877  	& 4.246601 \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Porcentaje de tiempo\\ remolcador desocupado\end{tabular}}                 & 80.536102  	& 0.170059 \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Porcentaje de tiempo\\ remolcador viajando vacío\end{tabular}}             & 1.338701   	& 0.257077  \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Porcentaje de tiempo\\ remolcador remolcando\end{tabular}}                 & 18.125198  	& 0.238838 \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Porcentaje de tiempo\\ puntos atraque libres\end{tabular}}                 & 13.506643  	& 1.514217 \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Porcentaje de tiempo\\ puntos atraque ocupados\\ (sin carga)\end{tabular}} & 0.367247   	& 0.041045  \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Porcentaje de tiempo\\ puntos atraque ocupados\\ (cargando)\end{tabular}}  & 86.126129  	& 1.500798 \\ \hline
+\end{tabular}%
+\end{table}
+
+Como podemos observar, los resultados también han mejorado respecto al modelo inicial. La mejora en cuanto a los barcos en cola de llegada quizás no ha sido tan grande, pero
+si hemos mejorado tanto en los barcos en cola de salida, como en los tiempos medios de estancia en el puerto, o reducido el tiempo en los puntos de atraque sin cargar. A mi
+perecer, este tipo de mejoras sería tan útil que una mejora como la anterior, ya que en estas no solo mejoras una parte del sistema, si no que se mejoran varios campos de éste.
+
+
+\subsection{Remolcador más rápido}
+
+La última mejora que aplicaremos será la de poner un remolcador más rápido, cambiando el tiempo que tarda en viajar sin remolcar un barco de 0.25 horas a 0.15 horas. En el código
+simplemente tendremos que cambiar en el $puerto.h$ la inicialización de la variable $tviajevacio = 0.15$. Los resultados han sido los siguientes:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{}                                                                         				   			  & \textbf{Media} & \textbf{Desviación}\\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Media barcos\\ cola de llegadas\end{tabular}}                   			  & 1.115587   	& 0.383936  \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Media barcos\\ cola de salidas\end{tabular}}                    			  & 0.028597   	& 0.003389  \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ puerto tipo 0\end{tabular}}                      			  & 32.837761  	& 4.073246 \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ puerto tipo 1\end{tabular}}                      			  & 38.666000  	& 4.302247 \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ puerto tipo 2\end{tabular}}                      			  & 50.444546  	& 4.246601 \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Porcentaje de tiempo\\ remolcador desocupado\end{tabular}}                 & 81.145782  	& 0.184065 \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Porcentaje de tiempo\\ remolcador viajando vacío\end{tabular}}             & 0.778007   	& 0.136834  \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Porcentaje de tiempo\\ remolcador remolcando\end{tabular}}                 & 18.076183  	& 0.225772 \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Porcentaje de tiempo\\ puntos atraque libres\end{tabular}}                 & 13.159771  	& 1.375104 \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Porcentaje de tiempo\\ puntos atraque ocupados\\ (sin carga)\end{tabular}} & 0.953223   	& 0.112976  \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Porcentaje de tiempo\\ puntos atraque ocupados\\ (cargando)\end{tabular}}  & 85.887001  	& 1.361523 \\ \hline
+\end{tabular}%
+\end{table}
+
+En esta mejora vemos que el único valor que mejora sustancialmente es el tiempo del remolcador viajando vacío. Yo este tipo de mejoras las evitaría, en caso de tener que elgir sólo
+una y que el coste sea similar al de las otras, ya que por mucho que se nos mejore una cosa, es preferible mejorar varios aspectos del modelo que quedarte solo con uno.
+
+
+\section{Distintas toneladas cargadas por petrolero}
+
+Para finalizar con este modelo, vamos a unir todas las mejoras en un sólo programa y vamos a añadirle una modificación. Ahora que el número de toneladas que cargan los petroleros será
+de 1000, 2000 y 3000 para los tipos 1, 2 y 3 respectivamente. Añadiremos esta nueva información con una nueva medida de rendimiento, todo en los archivos \textit{puerto-mej.cpp} y
+\textit{puerto-mej.h}. Veamos las diferencias que se producen entre las toneladas cargadas en el modelo base contra las toneladas cargadas en el modelo mejorado.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{img/puerto-mej1.png}
+\caption{Simulación del puerto sin mejoras.}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{img/puerto-mej2.png}
+\caption{Simulación del puerto mejorado.}
+\end{figure}
+
+Podemos comprobar como estos cambios no solo producen una mejora de rendimiento del sistema, si no que también procuden una mejora de eficiencia. Vemos que para el modelo base, la
+cantidad de crudo cargado es, en promedio, unos 10.000 kg menor que en el modelo mejorado. Por lo tanto, podemos concluir que tener un buen modelo de simulación nos puede servir
+para determinar en que es preferible invertir o gastarse un dinero para mejorar alguna de las partes del sistema, ya que hemos visto que unas mejoras no son tan efectivas como otras
+y que además podemos estimar cómo de buena puede ser (con kg de crudo en nuestro caso).
+
 
 
 \chapter{Análisis de Salidas y Experimentación}
+
+
 
 \section{¿Cuánto hay que simular?}
 

@@ -1,4 +1,4 @@
-#include "puerto.h"
+#include "puerto-mej.h"
 
 
 bool compare(const suc &s1, const suc &s2)
@@ -85,6 +85,8 @@ void inicializacion()
   insertar_lsuc(nodo);
 
   parar=false;
+
+  toneladas = 0.0;
 }
 
 
@@ -225,6 +227,10 @@ void fin_carga()
      cola_salidas.push_back(nodo.reg_cola);
      encola_sal ++;
      }
+
+  if (nodo.reg_cola.tipo == 0)  toneladas += 1000;
+  else if (nodo.reg_cola.tipo == 1) toneladas += 2000;
+  else toneladas += 3000;
 }
 
 
@@ -396,16 +402,18 @@ void fin_simulacion()
   informe[cont_simu][9] = 100*acum_at_yacargado/(reloj*num_atraques);
   //printf("\nPorcentaje de tiempo puntos de atraque ocupados cargando = %f",100*acum_at_cargando/(reloj*num_atraques));
   informe[cont_simu][10] = 100*acum_at_cargando/(reloj*num_atraques);
+
+  informe[cont_simu][11] = toneladas;
 }
 
 
 /* El generador de informes se encarga de calcular la media y desviacion tipica de los valores obtenidos */
 void generador_informes(int simulaciones)
 {
-  float media[11], dt[11];
+  float media[12], dt[12];
   int i,j;
   
-  for(j=0; j<11; j++)
+  for(j=0; j<12; j++)
   	{
   	media[j] = 0;
   	for(i=0; i<simulaciones; i++)
@@ -418,17 +426,18 @@ void generador_informes(int simulaciones)
   	dt[j] = sqrt((dt[j]-simulaciones*media[j]*media[j]) / (simulaciones-1.0));
 	}
 	
-  printf("\n\nINFORME ->");
-  printf("\n\nNumero medio de barcos en cola de llegadas: media(%f), dt(%f)",media[0],dt[0]);
-  printf("\nNumero medio de barcos en cola de salidas: media(%f), dt(%f)",media[1],dt[1]);
+  printf("\n\n  INFORME ->");
+  printf("\n\n  Numero medio de barcos en cola de llegadas: media(%f), dt(%f)",media[0],dt[0]);
+  printf("\n  Numero medio de barcos en cola de salidas: media(%f), dt(%f)",media[1],dt[1]);
   for (i=0; i<num_tiposbarco; i++)
-     printf("\nTiempo medio de estancia en puerto (tipo %d): media(%f), dt(%f)",i,media[2+i],dt[2+i]);
-  printf("\nPorcentaje de tiempo remolcador desocupado: media(%f), dt(%f)",media[5],dt[5]);
-  printf("\nPorcentaje de tiempo remolcador viajando vacio: media(%f), dt(%f)",media[6],dt[6]);
-  printf("\nPorcentaje de tiempo remolcador remolcando barcos: media(%f), dt(%f)",media[7],dt[7]);
-  printf("\nPorcentaje de tiempo puntos de atraque libres: media(%f), dt(%f)",media[8],dt[8]);
-  printf("\nPorcentaje de tiempo puntos de atraque ocupados sin cargar: media(%f), dt(%f)",media[9],dt[9]);
-  printf("\nPorcentaje de tiempo puntos de atraque ocupados cargando: media(%f), dt(%f)\n\n",media[10],dt[10]);
+     printf("\n  Tiempo medio de estancia en puerto (tipo %d): media(%f), dt(%f)",i,media[2+i],dt[2+i]);
+  printf("\n  Porcentaje de tiempo remolcador desocupado: media(%f), dt(%f)",media[5],dt[5]);
+  printf("\n  Porcentaje de tiempo remolcador viajando vacio: media(%f), dt(%f)",media[6],dt[6]);
+  printf("\n  Porcentaje de tiempo remolcador remolcando barcos: media(%f), dt(%f)",media[7],dt[7]);
+  printf("\n  Porcentaje de tiempo puntos de atraque libres: media(%f), dt(%f)",media[8],dt[8]);
+  printf("\n  Porcentaje de tiempo puntos de atraque ocupados sin cargar: media(%f), dt(%f)",media[9],dt[9]);
+  printf("\n  Porcentaje de tiempo puntos de atraque ocupados cargando: media(%f), dt(%f)",media[10],dt[10]);
+  printf("\n  Numero medio del total de toneladas cargadas: media(%f), dt(%f)\n\n",media[11],dt[11]);
 }
 
 
