@@ -599,13 +599,42 @@ y que además podemos estimar cómo de buena puede ser (con kg de crudo en nuest
 
 \chapter{Análisis de Salidas y Experimentación}
 
+En este capítulo vamos a comparar y analizar empíricamente el modelo original y el modelo en el que el remolcador puede operar incluso cuando hay tormentas. Para ello vamos a
+utilizar un script que ejecute los programas con 100 simulaciones y posteriormente, compare los resultados uno a uno y saquemos un porcentaje de veces en el que un sistema es
+mejor que el otro.
+
+El script está hecho en python, y se proporcionará también junto con la memoria y el resto de archivos. Como nos dice el guión, vamos a probarlo para 1, 5, 10, 25 y 50 simulaciones,
+y vamos a analizar si es factible la mejora en función de estas. Veamos los resultados:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c|c|c|c|c|c}
+\textbf{Número simulaciones} & \textbf{1} & \textbf{5} & \textbf{10} & \textbf{25} & \textbf{50} \\ \hline
+\textbf{NBCA\_A (\%)}        & 43         & 38         & 29          & 2           & 0           \\ \hline
+\textbf{NBCA\_B (\%)}        & 57         & 62         & 71          & 98          & 100         \\
+\end{tabular}
+\end{table}
 
 
-\section{¿Cuánto hay que simular?}
+Como podemos ver, a medida que hacemos más ejecuciones, aumenta el porcentaje del sistema con el remolcador mejorado. Esto se debe a que con pocas simulaciones se cometen más
+errores, sin embargo, cuando lo hacemos con 25 o 50, se ve claramente como el modelo mejorado obtiene mejores resultados que el que no lo está.
 
-\section{Intervalos de confianza}
+A continuación, vamos a probar a compara el sistema original con el del remolcador más rápido, pero vulnerable a las tormentas. La forma de proceder va a ser la misma que la
+anterior, pero en este caso con el nuevo programa. Estos son los resultados que hemos obtenido:
 
-\section{Comparación de más de dos sistemas}
+\begin{table}[H]
+\centering
+\begin{tabular}{c|c|c|c|c|c}
+\textbf{Número simulaciones} & \textbf{1} & \textbf{5} & \textbf{10} & \textbf{25} & \textbf{50} \\ \hline
+\textbf{NBCA\_A (\%)}        & 42         & 37         & 29          & 35          & 32          \\ \hline
+\textbf{NBCA\_B (\%)}        & 58         & 63         & 71          & 65          & 68          \\
+\end{tabular}
+\end{table}
+
+En este caso vemos cómo, si que generalmente este modelo es mejor que el original, pero sin una diferencia tan clara como en el anterior. También hay que tener en cuenta que con
+nuestro script estamos analizando y comparando la media de barcos en la cola de llegadas, y como vimos en el punto 2.2.3, que un remolcador sea más rápido mejora sobre todo el
+tiempo del remolcador viajando vacío. Si quisiésemos abarcar este problema también, tendremos que cambiar la variable a analizar, pero en caso de que lo único que queramos mejorar
+sea el número medio de barcos en la cola de llegadas, estamos haciendo bien, ya que nos podemos ahorrar el dinero de realizar esta mejora.
 
 \end{document}
 

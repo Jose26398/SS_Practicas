@@ -80,9 +80,9 @@ void inicializacion()
   nodo.suceso = SUCESO_LLEGADA_BARCO;
   nodo.tiempo = reloj+genera_barco(tllegmin,tllegmax);
   insertar_lsuc(nodo);
-  nodo.suceso = SUCESO_COMIENZO_TORMENTA;
-  nodo.tiempo = reloj+genera_tormenta(tentre_tormentas);
-  insertar_lsuc(nodo);
+  // nodo.suceso = SUCESO_COMIENZO_TORMENTA;
+  // nodo.tiempo = reloj+genera_tormenta(tentre_tormentas);
+  // insertar_lsuc(nodo);
 
   parar=false;
 
