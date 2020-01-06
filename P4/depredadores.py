@@ -4,7 +4,7 @@ import sys
 from matplotlib import pyplot as plt
 
 # Ruta de tu ejecutable con respecto al script.
-EXECUTABLE_PATH = './depredadores'
+EXECUTABLE_PATH = 'depredadores.exe'
 
 # Expresiones regulares de los valores a buscar.
 depredadores_pattern = re.compile(r'Depredadores: ([0-9]+\.[0-9]+)')
@@ -17,12 +17,14 @@ try:
     a12 = float(sys.argv[2])
     a21 = float(sys.argv[3])
     a22 = float(sys.argv[4])
+    x 	= float(sys.argv[5])
+    y 	= float(sys.argv[6])
 except IndexError:
     print("Numero de argumentos invalido")
     exit()
 
 # Ejecuta el comando y guarda el resultado en una variable.
-cmd = f"{EXECUTABLE_PATH} {a11} {a12} {a21} {a22}"
+cmd = f"{EXECUTABLE_PATH} {a11} {a12} {a21} {a22} {x} {y}"
 result = os.popen(cmd).read()
 
 # Busca todos los valores y los mapea a floats o enteros ya que son strings
@@ -42,5 +44,5 @@ plt.tight_layout()
 
 # Guarda la gráfica con el nombre del ejecutable y los parametros dados.
 plt.legend(title='Poblacion', loc='upper right')
-plt.savefig(f"./doc/img/grafica.png")
+plt.savefig(f"doc/img/2-{int(x)}-{int(y)}.png")
 plt.show()

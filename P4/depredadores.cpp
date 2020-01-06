@@ -38,7 +38,10 @@ void salida(float t){
 
 
 void fijar_parametros(){
-	
+	dt = 0.1;
+
+	tinic = 0;
+	tfin = 100;
 }
 
 
@@ -93,25 +96,19 @@ void integracion(){
 
 
 int main(int argc, char *argv[]){
-	if(argc == 5){
+	if(argc == 7){
 		sscanf(argv[1], "%f", &a11);
 		sscanf(argv[2], "%f", &a12);
 		sscanf(argv[3], "%f", &a21);
 		sscanf(argv[4], "%f", &a22);
+		sscanf(argv[5], "%f", &estado[1]);
+		sscanf(argv[6], "%f", &estado[0]);
 	}else{
-		printf("\nArgumentos: <a11> <a12> <a21> <a22>");
+		printf("\nArgumentos: <a11> <a12> <a21> <a22> <x_inicial> <y_inicial>");
 		exit(1);
 	}
 
-	estado[0] = a22/a21;
-	estado[1] = a11/a12;
-	dt = 0.1;
-
-	tinic = 0;
-	tfin = 100;
-
-
-	// fijar_parametros();
+	fijar_parametros();
 	t = tinic;
 	integracion();
 }
