@@ -126,7 +126,7 @@ proporcionado y además se adaptará a las especificaciones comentadas. Dispondr
 Euler (aunque no sea recomendable), y otro utilizando el método de Runge-Kuta.
 
 Los parámetros que le podremos pasar al programa será los 4 $a_{ij}$ comentados y los valores iniciales para los depredadores y las presas.
-Junto con este programa, también voy a adjuntar un script en python que, utilizando este modelo y los parámetros deseados, nos muestra una
+Junto con este programa, también voy a adjuntar un $script$ en python que, utilizando este modelo y los parámetros deseados, nos muestra una
 gráfica con la evolución de la población entre el instante inicial y el final.
 
 A continuación, vamos a realizar varias pruebas de nuestro modelo para comprobar su funcionamiento.
@@ -145,17 +145,18 @@ Podremos estimar las constantes de las ecuaciones con ayuda de las siguientes su
 
 Con esto tenemos que los valores iniciales para cada una de las constantes son: $a_{11}=5$, $a_{12}=0.05$, $a_{21}=0.0004$ y $a_{22}=0.2$.
 Las poblaciones iniciales para los depredadores y las presas serán las siguientes:
-$$depredadores(x) = \frac{a_{22}}{a_{21}} = 100$$
-$$presas(y) = \frac{a_{11}}{a_{12}} = 500$$
+$$depredadores(x) = \frac{a_{11}}{a_{12}} = 100$$
+$$presas(y) = \frac{a_{22}}{a_{21}} = 500$$
 
 Utilizaremos el método de integración de Runge-Kuta, junto con un intervalo de cálculo de $h=0.1$. El resultado ha sido el siguiente:
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.65]{img/2-100-500.png}
-\caption{depredadores x->100,   presas y->510}
+\caption{depredadores x->100,   presas y->500}
 \end{figure}
 
-Como podemos observar.............
+Como podemos observar, estos valores mantienen el sistema constante. Hemos conseguido el equilibrio perfecto, ya que ninguno de los niveles
+de la población están cambiando, es decir, el resultado de ambas derivadas en igual a 0.
 
 Vamos a distanciar progresivamente los valores de $x$ e $y$ para ver cómo evoluciona la población en esos casos. Probaremos aumentando las
 presas en 10, disminuyendo los depredadores en 10, haciendo las dos anteriores juntas, y aumentando en 50 las presas y disminuyendo en 50
@@ -170,7 +171,7 @@ los depredadores. Las gráficas resultantes han sido las siguientes:
 	\begin{minipage}{0.5\textwidth}
 	  \centering
 	  \includegraphics[scale=0.4]{img/2-90-500.png}
-	  \caption{x=90,  y=510}
+	  \caption{x=90,  y=500}
 	\end{minipage}
 \end{figure}
 
@@ -188,7 +189,98 @@ los depredadores. Las gráficas resultantes han sido las siguientes:
 	\end{minipage}
 \end{figure}
 
-En este caso, podemos ver que..........
+En estos casos, podemos ver cómo las poblaciones van oscilando e intentando mantener un equilibrio. El número de depredadores no puede crecer
+sin presas, mientras que el de presas no dejará de crecer. Sin embargo, cuando un valor está cerca del otro, disminuirá el número de presas
+ante el crecimiento de los depredadores, ya que las primeras son el alimento de los segundos.
+
+También podemos ver cómo aumentar o disminuir la cantidad de presas no influye tanto como aumentar o disminuir la cantidad de depredadores.
+Si nos fijamos en las figuras 3 y 4, son prácticamente iguales, ya que la única diferencia entre ellas han sido 10 presas; mientras que entre
+las gráficas 2 y 4, con una diferencia de 10 depredadores, vemos que son completamente distintas.
+
+Por otro parte, si nos fijamos en la última gráfica, vemos que no hay una clara oscilación. Esto se debe a los valores iniciales que les
+hemos dado están muy alejados unos de otros y que llegue un punto en el que no haya interacción presa-depredador. Cuando la interacción
+presa-depredador está ausente, el número de presas aumenta exponencialmente, mientras que el de zorros disminuye exponencialmente (y viceversa).
+Por lo tanto, no es necesario considerar la presencia de oscilación.
+
+ En nuestro caso, como el número de presas al principio es bastante alto, aumenta exponencialmente, lo que provoca un aumento gradual en el
+ número de depredadores. Como resultado, se produce una rápida disminución en el número de presas y una disminución exponencial en el número
+ de depredadores.
+
+
+ \section{Comparación en el plano x-y}
+
+ En el apartado anterior hemos comparado la población de ambas especies en función del tiempo, y obteniendo así una gráfica con las líneas
+ correspondientes a cada una de ellas. Pero, ¿y si las visualizamos la evolución en una representación gráfica de los valores de $x$ frente
+ a los de $y$, es decir, en el plano \textit{x-y}?
+
+ Para ello vamos a utilizar el mismo $script$ utilizado anteriormente, pero esta vez cambiando los datos a mostrar. A continuación, mostramos
+ el resultado de las mismas ejecuciones anteriores e intentaremos sacar alguna conclusión a partir de ellas.
+ \begin{figure}[H]
+	\centering
+	\begin{minipage}{0.5\textwidth}
+	  \centering
+	  \includegraphics[scale=0.37]{img/3-100-510.png}
+	  \caption{x=100,  y=510}
+	\end{minipage}%
+	\begin{minipage}{0.5\textwidth}
+	  \centering
+	  \includegraphics[scale=0.37]{img/3-90-500.png}
+	  \caption{x=90,  y=500}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{0.5\textwidth}
+	  \centering
+	  \includegraphics[scale=0.4]{img/3-90-510.png}
+	  \caption{x=90,  y=510}
+	\end{minipage}%
+	\begin{minipage}{0.5\textwidth}
+	  \centering
+	  \includegraphics[scale=0.4]{img/3-50-550.png}
+	  \caption{x=50,  y=550}
+	\end{minipage}
+\end{figure}
+
+Como podemos ver, para todos los casos se produce una curva cerrada. La relación implícita entre las variables viene dada por la siguiente
+ecuación $V=\delta x-\gamma ln(x)+\beta y-\alpha ln(y)$, donde V es una constante que depende de las condiciones iniciales y se conserva en
+cada curva.
+
+En cuanto a la diferencia entre las curvas con unos valores iniciales y otros, podemos ver cómo, a medida que distanciamos los valores, la
+curva deja de ser tan circular y pasa a ser más irregular.
+
+También podemos observar que en cada ciclo, la población de presas se reduce a números extremadamente bajos, mientras que la población de
+depredadores sigue siendo considerable hasta en su nivel más bajo. En condiciones reales, esta variabilidad en la población junto con factores
+externos o el ciclo de vida de las presas, podría hacer que la especie se extinga, y en consecuencia, también los depredadores (si esta es
+su principal o única fuente de alimento).
+
+
+
+\section{Experimentación cambiando las constantes $a_{ij}$}
+
+En este apartado vamos a cambiar uno a uno estos valores para ver cómo afectan al modelo. Estudiaremos varios gráficos, pero vamos a comenzar
+con una población inicial de 100 depredadores y de 500 presas, ya que es el modelo en equilibrio y donde más se van a notar los cambios. Vamos
+a incrementar el valor de $a_{12}$, el cual representa que los depredadores son cazadores más eficientes (capturan más presas), pasándolo de
+0.05 a 0.075. Este ha sido el resultado:
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[scale=0.4]{img/4-a12-100-500.png}
+		\caption{x=100, y=500, $a_{12}$=0.075}
+	\end{minipage}%
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[scale=0.4]{img/4-a12-70-500.png}
+		\caption{x=70, y=500, $a_{12}$=0.075}
+	\end{minipage}
+\end{figure}
+
+Como podemos ver, un aumento de un 50\% de eficiencia a la hora de cazar hace que el modelo se desestabilice bastante, llegando casi a perder
+por completo la oscilación (la interacción presa-depredador). En la imagen de la derecha podemos ver cómo, con unos depredadores eficientes,
+podemos compensar una falta de estos en la población inicial, manteniendo el sistema bastante equilibrado.
+
 
 \end{document}
 

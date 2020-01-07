@@ -44,5 +44,18 @@ plt.tight_layout()
 
 # Guarda la gráfica con el nombre del ejecutable y los parametros dados.
 plt.legend(title='Poblacion', loc='upper right')
-plt.savefig(f"doc/img/2-{int(x)}-{int(y)}.png")
+plt.savefig(f"doc/img/4-a12-{int(x)}-{int(y)}.png")
 plt.show()
+
+
+# # Dibuja los datos plano x-y
+# plt.plot(presas, depredadores)
+
+# plt.xlabel('Presas')
+# plt.ylabel('Depredadores')
+
+# plt.tight_layout()
+
+# # Guarda la gráfica con el nombre del ejecutable y los parametros dados.
+# plt.savefig(f"doc/img/4-a12-{int(x)}-{int(y)}.png")
+# plt.show()
