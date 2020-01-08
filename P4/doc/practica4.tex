@@ -281,6 +281,28 @@ Como podemos ver, un aumento de un 50\% de eficiencia a la hora de cazar hace qu
 por completo la oscilación (la interacción presa-depredador). En la imagen de la derecha podemos ver cómo, con unos depredadores eficientes,
 podemos compensar una falta de estos en la población inicial, manteniendo el sistema bastante equilibrado.
 
+Ahora vamos a incrementar el valor de $a_{11}$, el cual indica que las presas tienen una tasa de crecimiento más rápida, pasándolo de 5 crías
+por pareja a 6. Este ha sido el resultado:
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[scale=0.4]{img/4-a11-100-500.png}
+		\caption{x=100, y=500, $a_{11}$=6}
+	\end{minipage}%
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[scale=0.4]{img/4-a11-115-500.png}
+		\caption{x=115, y=500, $a_{11}$=6}
+	\end{minipage}
+\end{figure}
+
+Como podemos ver, tenemos una situación muy similar a la anterior, ya que también desestabilizamos bastante el modelo. No obstante, en este caso
+ha sido al contrario, ya que estamos aumentando el número de conejos al año. En la imagen de la derecha podemos ver cómo mantenemos el sistema
+más o menos equilibrado, pero aumentando el número de depredadores inicial, en vez de reducirlo.
+
+A continuación, vamos a probar con el parámetro $a_{22}$, el cual representa la longevidad de los depredadores.
+
 
 \end{document}
 
