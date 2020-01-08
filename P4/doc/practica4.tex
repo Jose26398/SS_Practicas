@@ -150,9 +150,9 @@ $$presas(y) = \frac{a_{22}}{a_{21}} = 500$$
 
 Utilizaremos el método de integración de Runge-Kuta, junto con un intervalo de cálculo de $h=0.1$. El resultado ha sido el siguiente:
 \begin{figure}[H]
-\centering
-\includegraphics[scale=0.65]{img/2-100-500.png}
-\caption{depredadores x->100,   presas y->500}
+	\centering
+	\includegraphics[scale=0.65]{img/2-100-500.png}
+	\caption{depredadores x->100,   presas y->500}
 \end{figure}
 
 Como podemos observar, estos valores mantienen el sistema constante. Hemos conseguido el equilibrio perfecto, ya que ninguno de los niveles
@@ -301,8 +301,107 @@ Como podemos ver, tenemos una situación muy similar a la anterior, ya que tambi
 ha sido al contrario, ya que estamos aumentando el número de conejos al año. En la imagen de la derecha podemos ver cómo mantenemos el sistema
 más o menos equilibrado, pero aumentando el número de depredadores inicial, en vez de reducirlo.
 
-A continuación, vamos a probar con el parámetro $a_{22}$, el cual representa la longevidad de los depredadores.
+A continuación, vamos a probar con el parámetro $a_{22}$, el cual representa la longevidad de los depredadores. Vamos a proceder de la misma forma
+que hemos hecho en los casos anteriores, y modificando este parámetro de 0.2 a 0.1 (es decir, disminuyendo el porcentaje de zorros que mueren al año).
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{img/4-a22-100-500.png}
+	\caption{x=100, y=500, $a_{22}$=0.1}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[scale=0.4]{img/4-a22-110-500.png}
+		\caption{x=110, y=500, $a_{22}$=0.1}
+	\end{minipage}%
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[scale=0.4]{img/4-a22-90-500.png}
+		\caption{x=90, y=500, $a_{22}$=0.1}
+	\end{minipage}
+\end{figure}
 
+En este caso, vemos que el resultado es distinto de los anteriores. Si que es verdad que el modelo se desestabiliza con los parámetros por defecto,
+pero en este caso, al intentar estabilizarlo tanto poniendo menos depredadores (sería lo lógico al aumentar su longevidad) como poniendo más, vemos
+que el sistema pierde la interacción presa-depredador.
+
+\newpage
+Por último, veremos que sucede modificando el último parámetro $a_{21}$, el cual está relacionado con el valor nutricional de las presas, de forma
+cuanto mayor es este valor, menos presas necesita cada depredador para sobrevivir. Vamos a cambiar este valor de 0.0004 a 0.001 para que necesiten
+menos presas y ver que sucede:
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[scale=0.4]{img/4-a21-100-500.png}
+		\caption{x=100, y=500, $a_{21}$=0.001}
+	\end{minipage}%
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[scale=0.4]{img/4-a21-100-250.png}
+		\caption{x=100, y=250, $a_{21}$=0.001}
+	\end{minipage}
+\end{figure}
+
+Vemos que este valor, pese a ser muy pequeño, es bastante importante. Como podemos ver en la primera imagen hemos desestabilizado el modelo por completo,
+y hemos conseguido estabilizarlo utilizando la mitad de presas iniciales que anteriormente, con 250.
+
+Como conclusión, podemos comentar que pese a tener un buen sistema de simulación, preciso y que refleje bien los datos, hay que tener muy en cuenta
+los parámetros introducidos en él. Es decir, si no hacemos un esudio previo de cómo funciona cada especie y sus relaciones entre sí, podemos equivocarnos
+bastante al realizar la simulación y obtener valores indeseados. También tenemos que tener en cuenta que, en la vida real, habrá factores externos al
+sistema o situaciones (como la extinción de una especie) que pueden cambiar por completo el resultado obtenido en la simulación.
+
+
+\newpage
+\section{Comparación Euler/Runge-Kuta}
+En este apartado vamos a comparar el mismo modelo de simulación, pero esta vez con distintos métodos de integración. Los anteriores los hemos realizado
+con el método de Runge-Kuta, que es el recomendado para realizar el estudio. Sin embargo, ahora vamos a comprobar qué hubiese pasado si utilizásemos
+el método de Euler, el cual es el más sencillo de implementar.
+
+Para realiza esta comparación, también utilizaremos distintos intervalos de cálculo, no sólo con $h=0.1$. El resto de parámetros será los que pusimos por
+defecto con el modelo equilibrado, excepto la población de depredadores que será de 90. Esto lo haremos porque nos ofrecía un modelo que oscilaba con el
+tiempo, pero sin llegar a extinguir ninguna especie.
+
+Hagamos una ejecución de cada uno de los métodos de integración con un intervalo de cálculo $h=0.1$. Este es el resultado:
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{img/5-rk-90-500.png}
+	\caption{Runge-Kuta, h=0.1}
+\end{figure}
+
+La ejecución con el método de Runge-Kuta ha salido exactamente igual que antes, sin embargo, cuando he ejecutado el de Euler no he obtenido una gráfica.
+Cuando he ejecutado el programa imprimiendo cada uno de los valores obtenidos, he podido ver el siguiente error:
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{img/5-e-90-500.png}
+	\caption{Euler, h=0.1}
+\end{figure}
+
+Como podemos observar, con este intervalo de cálculo se cometen errores de precisión muy altos, llegando a dividir entre valores muy aproximados a cero
+o haciendo $\frac{\infty}{\infty}$. A continuación, vamos a ver que pasa con un intervalo de cálculo más pequeño, por ejemplo 0.05:
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[scale=0.4]{img/5-rk005-90-500.png}
+		\caption{Runge-Kuta, h=0.05}
+	\end{minipage}%
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[scale=0.4]{img/5-e005-90-500.png}
+		\caption{Euler, h=0.05}
+	\end{minipage}
+\end{figure}
+
+En este caso si que podemos apreciar bien el error que comete este método. Como podemos observar en la imagen de la derecha, el error hace que los valores
+de cada una de las especies empiece a aumentar desproporcionalmente, alcanzando valores de hasta 6.000 presas. Al reducir el intervalo anterior hemos
+conseguido ver la evolución del error, no obstante, si hubiesemos puesto un número más alto de ciclos, se habría llegado a los valores desorbitados obtenidos
+anteriormente.
+
+Gracias a estas ejecuciones, podemos confirmar que este método de Euler no es apropiado dependiedo de los intervalos y las medidas de tiempo que utilizemos
+para hacer el cálculo. Y además, pese a parecer un método sencillo de implementar y que a priori funciona, a la hora de ponerlo en práctica, podemos obtener
+los fallos que nos acaba de dar.
 
 \end{document}
 

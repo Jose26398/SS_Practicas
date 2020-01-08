@@ -89,7 +89,7 @@ void integracion(){
 		salida(t);
 		oldestado[0] = estado[0];
 		oldestado[1] = estado[1];
-		one_step_runge_kutta(oldestado, estado, t, dt); //sustituir por one-step-runge-kutta o por one-step-euler
+		one-step-runge-kutta(oldestado, estado, t, dt); //sustituir por one-step-runge-kutta o por one-step-euler
 		t += dt;
 	} while(t < tfin);
 }

@@ -4,7 +4,7 @@ import sys
 from matplotlib import pyplot as plt
 
 # Ruta de tu ejecutable con respecto al script.
-EXECUTABLE_PATH = 'depredadores.exe'
+EXECUTABLE_PATH = './depredadores'
 
 # Expresiones regulares de los valores a buscar.
 depredadores_pattern = re.compile(r'Depredadores: ([0-9]+\.[0-9]+)')
@@ -42,20 +42,20 @@ plt.ylabel('Poblacion')
 
 plt.tight_layout()
 
-# Guarda la gráfica con el nombre del ejecutable y los parametros dados.
 plt.legend(title='Poblacion', loc='upper right')
-# plt.savefig(f"doc/img/4-a11-{int(x)}-{int(y)}.png")
+# Guarda la gráfica con el nombre del ejecutable y los parametros dados.
+# plt.savefig(f"./doc/img/5-rk0.05-{int(x)}-{int(y)}.png")
 plt.show()
 
 
-# # Dibuja los datos plano x-y
-# plt.plot(presas, depredadores)
+# Dibuja los datos plano x-y
+plt.plot(presas, depredadores)
 
-# plt.xlabel('Presas')
-# plt.ylabel('Depredadores')
+plt.xlabel('Presas')
+plt.ylabel('Depredadores')
 
-# plt.tight_layout()
+plt.tight_layout()
 
-# # Guarda la gráfica con el nombre del ejecutable y los parametros dados.
+# Guarda la gráfica con el nombre del ejecutable y los parametros dados.
 # plt.savefig(f"doc/img/4-a12-{int(x)}-{int(y)}.png")
-# plt.show()
+plt.show()
